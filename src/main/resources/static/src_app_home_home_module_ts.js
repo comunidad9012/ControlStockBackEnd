@@ -293,19 +293,17 @@ let FileProductConfirmListComponent = class FileProductConfirmListComponent {
                 this.searchby = false;
             }
             this.newFileProduct(false); // Hace que no se muestre el newFileProduct
-            if (data.cod !== '000000000000') {
-                this.getAllFileProductsByCodesId(data.cod); // Llama a obtener todos los FileProducts que coincidan con el codigo
-                this.cod = {
-                    id: data.cod
-                }; // Almacena el codigo en la variable cod
-            }
+            this.getAllFileProductsByCodesId(data.cod); // Llama a obtener todos los FileProducts que coincidan con el codigo
+            this.cod = {
+                id: data.cod
+            };
+            console.log('El id es', this.cod);
             this.getAllFileProducts(); // Llama a todos los fileProductF
             // Almacena la cantidad a ingresar en scanned product en la variable scannerProductAmount
             this.scannerProductAmount = {
                 amount: data.amount
             };
         });
-        // REVISAR
         this.scannerService.triggerSelectItem.subscribe((data) => {
             this.selectItem(data);
         });
@@ -339,9 +337,9 @@ let FileProductConfirmListComponent = class FileProductConfirmListComponent {
             .newOrUpdateScannedProduct(fileProductId, this.scannerProductAmount)
             .subscribe(d => {
             console.log(d);
-            this.codesRequestService.addCode(fileProductId, this.cod).subscribe(data => {
-                console.log('Cod agregado', data);
-            });
+            if (this.cod.id !== '') {
+                this.codesRequestService.addCode(fileProductId, this.cod).subscribe(() => { });
+            }
             this.scannerRequestService
                 .getAllScannedProduct()
                 .subscribe((data) => {
@@ -546,7 +544,7 @@ let SccanerComponent = class SccanerComponent {
         this.barcodeScanner = barcodeScanner;
         this.scannerService = scannerService;
         this.alertsService = alertsService;
-        this.cod = 'xxxxxxxxxxxx'; // Codigo de escaneo
+        this.cod = ''; // Codigo de escaneo
         this.chekingByValue = true; // Indica si la busqueda sera con o sin COD. True === con
         this.productForm = new _angular_forms__WEBPACK_IMPORTED_MODULE_5__.FormGroup({
             amount: new _angular_forms__WEBPACK_IMPORTED_MODULE_5__.FormControl(''), // Inicia vacio sin valor por default
@@ -576,14 +574,7 @@ let SccanerComponent = class SccanerComponent {
         this.barcodeScanner
             .scan()
             .then((barcodeData) => {
-            if (barcodeData.text === '') {
-                this.cod = 'xxxxxxxxxxxx';
-            }
-            else {
-                this.cod = barcodeData.text;
-            }
-        }).then(() => {
-            this.cod = 'hola mundo';
+            this.cod = barcodeData.text;
         })
             .catch((err) => {
             console.log('Error', err);
@@ -591,6 +582,9 @@ let SccanerComponent = class SccanerComponent {
     }
     pushProduct() {
         this.scannerService.triggerOpenModal.emit(true);
+        if (!this.chekingByValue) {
+            this.cod = '';
+        }
         // Trae los valores del formulario amount
         const form = this.productForm.value;
         if (!form.amount) {
@@ -658,10 +652,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let CodesRequestService = class CodesRequestService {
+    //baseURL = 'http://localhost:8888/api';
     constructor(httpClient) {
         this.httpClient = httpClient;
-        //baseURL = 'http://168.232.165.65:8888/api';
-        this.baseURL = 'http://localhost:8888/api';
+        this.baseURL = 'http://34.176.209.24:8888/api';
     }
     getAllFileProductsByCodesId(codesId) {
         return this.httpClient.get(this.baseURL + '/codes/' + codesId + '/file-products');
@@ -703,10 +697,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let FileProductRequestService = class FileProductRequestService {
+    //baseURL = 'http://localhost:8888/api';
     constructor(httpClient) {
         this.httpClient = httpClient;
-        //baseURL = 'http://168.232.165.65:8888/api';
-        this.baseURL = 'http://localhost:8888/api';
+        this.baseURL = 'http://34.176.209.24:8888/api';
     }
     //Post File Product
     newFileProduct(fileProduct) {
@@ -743,10 +737,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let ScannerRequestService = class ScannerRequestService {
+    //baseURL = 'http://localhost:8888/api';
     constructor(httpClient) {
         this.httpClient = httpClient;
-        //baseURL = 'http://168.232.165.65:8888/api';
-        this.baseURL = 'http://localhost:8888/api';
+        this.baseURL = 'http://34.176.209.24:8888/api';
     }
     //Post or Update
     newOrUpdateScannedProduct(fileProdcutId, scannerProduct) {
@@ -885,6 +879,8 @@ let HomePage = class HomePage {
         this.scannerService = scannerService;
         this.cheking = 'con';
         this.chekingByValue = true; // "chekingByValue" indica si la busqueda sera con o sin COD. True === con
+        // eslint-disable-next-line max-len
+        this.variable = 'https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d3355381.863232432!2d-68.53111545!3d-34.7873176!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses!2sar!4v1667088803589!5m2!1ses!2sar';
     }
     // La funcion chenkingBy() se usa para seleccionar si ingresar un producto por codigo o sin codigo
     chekingBy() {
@@ -1155,7 +1151,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
   \************************************************/
 /***/ ((module) => {
 
-module.exports = "#container {\n  text-align: center;\n  position: absolute;\n  left: 0;\n  right: 0;\n  top: 50%;\n  transform: translateY(-50%);\n}\n\n#container strong {\n  font-size: 20px;\n  line-height: 26px;\n}\n\n#container p {\n  font-size: 16px;\n  line-height: 22px;\n  color: #8c8c8c;\n  margin: 0;\n}\n\n#container a {\n  text-decoration: none;\n}\n\n.navBar {\n  position: relative;\n}\n\n.main {\n  height: 100%;\n  display: flex;\n  flex-direction: column;\n}\n\n.main > div:last-child {\n  flex: 1;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImhvbWUucGFnZS5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0Usa0JBQUE7RUFFQSxrQkFBQTtFQUNBLE9BQUE7RUFDQSxRQUFBO0VBQ0EsUUFBQTtFQUNBLDJCQUFBO0FBQUY7O0FBR0E7RUFDRSxlQUFBO0VBQ0EsaUJBQUE7QUFBRjs7QUFHQTtFQUNFLGVBQUE7RUFDQSxpQkFBQTtFQUVBLGNBQUE7RUFFQSxTQUFBO0FBRkY7O0FBS0E7RUFDRSxxQkFBQTtBQUZGOztBQUtBO0VBQ0Usa0JBQUE7QUFGRjs7QUFLQTtFQUNFLFlBQUE7RUFDQSxhQUFBO0VBQ0Esc0JBQUE7QUFGRjs7QUFJQTtFQUNFLE9BQUE7QUFERiIsImZpbGUiOiJob21lLnBhZ2Uuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIiNjb250YWluZXIge1xyXG4gIHRleHQtYWxpZ246IGNlbnRlcjtcclxuXHJcbiAgcG9zaXRpb246IGFic29sdXRlO1xyXG4gIGxlZnQ6IDA7XHJcbiAgcmlnaHQ6IDA7XHJcbiAgdG9wOiA1MCU7XHJcbiAgdHJhbnNmb3JtOiB0cmFuc2xhdGVZKC01MCUpO1xyXG59XHJcblxyXG4jY29udGFpbmVyIHN0cm9uZyB7XHJcbiAgZm9udC1zaXplOiAyMHB4O1xyXG4gIGxpbmUtaGVpZ2h0OiAyNnB4O1xyXG59XHJcblxyXG4jY29udGFpbmVyIHAge1xyXG4gIGZvbnQtc2l6ZTogMTZweDtcclxuICBsaW5lLWhlaWdodDogMjJweDtcclxuXHJcbiAgY29sb3I6ICM4YzhjOGM7XHJcblxyXG4gIG1hcmdpbjogMDtcclxufVxyXG5cclxuI2NvbnRhaW5lciBhIHtcclxuICB0ZXh0LWRlY29yYXRpb246IG5vbmU7XHJcbn1cclxuXHJcbi5uYXZCYXJ7XHJcbiAgcG9zaXRpb246IHJlbGF0aXZlO1xyXG59XHJcblxyXG4ubWFpbntcclxuICBoZWlnaHQ6IDEwMCU7XHJcbiAgZGlzcGxheTogZmxleDtcclxuICBmbGV4LWRpcmVjdGlvbjogY29sdW1uO1xyXG59XHJcbi5tYWluID4gZGl2Omxhc3QtY2hpbGQge1xyXG4gIGZsZXg6IDE7XHJcbn1cclxuIl19 */";
+module.exports = "#container {\n  text-align: center;\n  position: absolute;\n  left: 0;\n  right: 0;\n  top: 50%;\n  transform: translateY(-50%);\n}\n\n#container strong {\n  font-size: 20px;\n  line-height: 26px;\n}\n\n#container p {\n  font-size: 16px;\n  line-height: 22px;\n  color: #8c8c8c;\n  margin: 0;\n}\n\n#container a {\n  text-decoration: none;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImhvbWUucGFnZS5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0Usa0JBQUE7RUFFQSxrQkFBQTtFQUNBLE9BQUE7RUFDQSxRQUFBO0VBQ0EsUUFBQTtFQUNBLDJCQUFBO0FBQUY7O0FBR0E7RUFDRSxlQUFBO0VBQ0EsaUJBQUE7QUFBRjs7QUFHQTtFQUNFLGVBQUE7RUFDQSxpQkFBQTtFQUVBLGNBQUE7RUFFQSxTQUFBO0FBRkY7O0FBS0E7RUFDRSxxQkFBQTtBQUZGIiwiZmlsZSI6ImhvbWUucGFnZS5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiI2NvbnRhaW5lciB7XHJcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xyXG5cclxuICBwb3NpdGlvbjogYWJzb2x1dGU7XHJcbiAgbGVmdDogMDtcclxuICByaWdodDogMDtcclxuICB0b3A6IDUwJTtcclxuICB0cmFuc2Zvcm06IHRyYW5zbGF0ZVkoLTUwJSk7XHJcbn1cclxuXHJcbiNjb250YWluZXIgc3Ryb25nIHtcclxuICBmb250LXNpemU6IDIwcHg7XHJcbiAgbGluZS1oZWlnaHQ6IDI2cHg7XHJcbn1cclxuXHJcbiNjb250YWluZXIgcCB7XHJcbiAgZm9udC1zaXplOiAxNnB4O1xyXG4gIGxpbmUtaGVpZ2h0OiAyMnB4O1xyXG5cclxuICBjb2xvcjogIzhjOGM4YztcclxuXHJcbiAgbWFyZ2luOiAwO1xyXG59XHJcblxyXG4jY29udGFpbmVyIGEge1xyXG4gIHRleHQtZGVjb3JhdGlvbjogbm9uZTtcclxufVxyXG5cclxuXHJcbiJdfQ== */";
 
 /***/ }),
 
@@ -1165,7 +1161,7 @@ module.exports = "#container {\n  text-align: center;\n  position: absolute;\n  
   \**********************************************************************************************************/
 /***/ ((module) => {
 
-module.exports = "<ion-modal [isOpen]=\"isModalOpen\">\n  <ng-template>\n    <ion-header>\n      <ion-toolbar color=\"main-color\">\n        <ion-buttons slot=\"secondary\">\n          <ion-button (click)=\"newFileProduct(true)\">\n            <ion-icon slot=\"icon-only\" name=\"add-circle-outline\"></ion-icon>\n          </ion-button>\n          <ion-button *ngIf=\"chekingBy\" (click)=\"searchBy()\">\n            <ion-icon slot=\"icon-only\" name=\"repeat\"></ion-icon>\n          </ion-button>\n          <ion-button (click)=\"setOpen(false)\">\n            <ion-icon slot=\"icon-only\" name=\"close\"></ion-icon>\n          </ion-button>\n        </ion-buttons>\n        <ng-container *ngIf=\"searchby; then cod; else name\"></ng-container>\n        <ng-template #cod>\n          <ion-title>Buscar por COD</ion-title>\n        </ng-template>\n        <ng-template #name>\n          <ion-title>Buscar por NOMBRE</ion-title>\n        </ng-template>\n      </ion-toolbar>\n      <ion-toolbar *ngIf=\"!searchby\" color=\"main-color\">\n        <ion-searchbar placeholder=\"Search\" [(ngModel)]=\"filterTerm\" animated=\"true\"></ion-searchbar>\n      </ion-toolbar>\n    </ion-header>\n    \n    <ion-content *ngIf=\"searchby && !varNewFileProduct\">\n      <ion-list *ngFor=\"let fileProduct of fileProducts\">\n          <ion-item button (click)=\"selectItem(fileProduct.id)\">\n            <ion-label>\n              <h2><b>Nombre:</b> {{fileProduct.productName}}</h2>\n              <p><b>Marca:</b> {{fileProduct.mark}}</p>\n              <p><b>Cantidad:</b> {{fileProduct.amount}}</p>\n            </ion-label>\n            <ion-badge color=\"success\" *ngIf=\"fileProduct.scannedProduct\">Escanneado</ion-badge>\n            <ion-badge color=\"danger\" *ngIf=\"!fileProduct.scannedProduct\">No Escanneado</ion-badge>\n          </ion-item>\n      </ion-list>\n    </ion-content>\n\n    <ion-content *ngIf=\"!searchby && !varNewFileProduct\">\n      <ion-list *ngFor=\"let allFileProduct of allFileProducts | filter: filterTerm\"> \n        <ion-item button (click)=\"selectItem(allFileProduct.id)\">\n          <ion-label>\n            <h2><b>Nombre:</b> {{allFileProduct.productName}}</h2>\n            <p><b>Marca:</b> {{allFileProduct.mark}}</p>\n            <p><b>Cantidad:</b> {{allFileProduct.amount}}</p>\n          </ion-label>\n          <ion-badge color=\"success\" *ngIf=\"allFileProduct.scannedProduct\">Escanneado</ion-badge>\n          <ion-badge color=\"danger\" *ngIf=\"!allFileProduct.scannedProduct\">No Escanneado</ion-badge>\n        </ion-item>\n      </ion-list>\n    </ion-content>\n\n    <ion-content *ngIf=\"varNewFileProduct\">\n      <app-new-file-product></app-new-file-product>\n    </ion-content>\n        \n  </ng-template>\n</ion-modal>";
+module.exports = "<ion-modal [isOpen]=\"isModalOpen\">\n  <ng-template>\n    <ion-header>\n      <ion-toolbar color=\"main-color\">\n        <ion-buttons slot=\"secondary\">\n          <ion-button (click)=\"newFileProduct(true)\">\n            <ion-icon slot=\"icon-only\" name=\"add-circle-outline\"></ion-icon>\n          </ion-button>\n          <ion-button *ngIf=\"chekingBy\" (click)=\"searchBy()\">\n            <ion-icon slot=\"icon-only\" name=\"repeat\"></ion-icon>\n          </ion-button>\n          <ion-button (click)=\"setOpen(false)\">\n            <ion-icon slot=\"icon-only\" name=\"close\"></ion-icon>\n          </ion-button>\n        </ion-buttons>\n        <ng-container *ngIf=\"searchby; then cod; else name\"></ng-container>\n        <ng-template #cod>\n          <ion-title>Buscar por COD</ion-title>\n        </ng-template>\n        <ng-template #name>\n          <ion-title>Buscar por NOMBRE</ion-title>\n        </ng-template>\n      </ion-toolbar>\n      <ion-toolbar *ngIf=\"!searchby\" color=\"main-color\">\n        <ion-searchbar placeholder=\"Search\" [(ngModel)]=\"filterTerm\" animated=\"true\"></ion-searchbar>\n      </ion-toolbar>\n    </ion-header>\n    \n    <ion-content *ngIf=\"searchby && !varNewFileProduct\">\n      <div *ngIf=\"fileProducts\">\n      <ion-list *ngFor=\"let fileProduct of fileProducts\">\n          <ion-item button (click)=\"selectItem(fileProduct.id)\">\n            <ion-label>\n              <h2><b>Nombre:</b> {{fileProduct.productName}}</h2>\n              <p><b>Marca:</b> {{fileProduct.mark}}</p>\n              <p><b>Cantidad:</b> {{fileProduct.amount}}</p>\n            </ion-label>\n            <ion-badge color=\"success\" *ngIf=\"fileProduct.scannedProduct\">Escanneado</ion-badge>\n            <ion-badge color=\"danger\" *ngIf=\"!fileProduct.scannedProduct\">No Escanneado</ion-badge>\n          </ion-item>\n      </ion-list>\n    </div>\n    <div *ngIf=\"!fileProducts\">\n      <ion-item>\n        <ion-label>\n          No hay productos que coincidan con el codigo\n        </ion-label>\n        <ion-icon name=\"information-circle\" slot=\"end\"></ion-icon>\n      </ion-item>\n    </div>\n    </ion-content>\n\n    <ion-content *ngIf=\"!searchby && !varNewFileProduct\">\n      <ion-list *ngFor=\"let allFileProduct of allFileProducts | filter: filterTerm\"> \n        <ion-item button (click)=\"selectItem(allFileProduct.id)\">\n          <ion-label>\n            <h2><b>Nombre:</b> {{allFileProduct.productName}}</h2>\n            <p><b>Marca:</b> {{allFileProduct.mark}}</p>\n            <p><b>Cantidad:</b> {{allFileProduct.amount}}</p>\n          </ion-label>\n          <ion-badge color=\"success\" *ngIf=\"allFileProduct.scannedProduct\">Escanneado</ion-badge>\n          <ion-badge color=\"danger\" *ngIf=\"!allFileProduct.scannedProduct\">No Escanneado</ion-badge>\n        </ion-item>\n      </ion-list>\n    </ion-content>\n\n    <ion-content *ngIf=\"varNewFileProduct\">\n      <app-new-file-product></app-new-file-product>\n    </ion-content>\n        \n  </ng-template>\n</ion-modal>";
 
 /***/ }),
 
@@ -1185,7 +1181,7 @@ module.exports = "<ion-card>\n  <ion-card-header>\n    <ion-card-title>Nuevo Fil
   \************************************************************************************************/
 /***/ ((module) => {
 
-module.exports = "<ion-content>\r\n  <ion-list *ngFor=\"let listProductsScanned of listProductsScanneds\">\r\n    <ion-item>\r\n      <ion-label>\r\n        <h2><b>Nombre:</b> {{listProductsScanned.fileProduct.productName}}</h2>\r\n        <p><b>Marca:</b> {{listProductsScanned.fileProduct.mark}}</p>\r\n        <p><b>Cantidad escaneada:</b> {{listProductsScanned.amount}}</p>\r\n      </ion-label>\r\n      <ion-button shape=\"round\" title=\"Borrar cliente\" color=\"danger\" (click)=\"deleteProduct(listProductsScanned.id)\">\r\n        <ion-icon slot=\"icon-only\" name=\"trash-outline\"></ion-icon>\r\n      </ion-button>\r\n      <ion-button shape=\"round\" title=\"Editar cliente\" color=\"warning\" (click)=\"productUpdate(listProductsScanned)\">\r\n        <ion-icon slot=\"icon-only\" name=\"pencil-outline\"></ion-icon>\r\n      </ion-button>\r\n    </ion-item>\r\n  </ion-list>\r\n</ion-content>";
+module.exports = "<div class=\"cardControl height98\">\r\n  <div class=\"main\">\r\n    <div>\r\n      <div>\r\n        <ion-item class=\"searchBar width100\" lines=\"none\">\r\n          <ion-label><ion-icon name=\"search-outline\"></ion-icon></ion-label>\r\n          <ion-input placeholder=\"Search\" [(ngModel)]=\"filterTerm\" animated=\"true\"></ion-input>\r\n        </ion-item>\r\n      </div>\r\n    </div>\r\n    <div class=\"table\">\r\n      <ion-content>\r\n        <ion-list *ngFor=\"let listProductsScanned of listProductsScanneds | filter: filterTerm\">\r\n          <ion-item>\r\n            <ion-label>\r\n              <h2><b>Nombre:</b> {{listProductsScanned.fileProduct.productName}}</h2>\r\n              <p><b>Marca:</b> {{listProductsScanned.fileProduct.mark}}</p>\r\n              <p><b>Cantidad escaneada:</b> {{listProductsScanned.amount}}</p>\r\n            </ion-label>\r\n            <ion-button shape=\"round\" title=\"Borrar cliente\" color=\"danger\"\r\n              (click)=\"deleteProduct(listProductsScanned.id)\">\r\n              <ion-icon slot=\"icon-only\" name=\"trash-outline\"></ion-icon>\r\n            </ion-button>\r\n            <ion-button shape=\"round\" title=\"Editar cliente\" color=\"warning\" (click)=\"productUpdate(listProductsScanned)\">\r\n              <ion-icon slot=\"icon-only\" name=\"pencil-outline\"></ion-icon>\r\n            </ion-button>\r\n          </ion-item>\r\n        </ion-list>\r\n      </ion-content>\r\n    </div>\r\n  </div>\r\n</div>";
 
 /***/ }),
 
@@ -1195,7 +1191,7 @@ module.exports = "<ion-content>\r\n  <ion-list *ngFor=\"let listProductsScanned 
   \**********************************************************************/
 /***/ ((module) => {
 
-module.exports = "<ion-card>\n  <ion-card-content>\n    <ion-row>\n      <ion-col> <!-- Muestra uno u otro dependiendo de si es con o sin COD-->\n        <ng-container *ngIf=\"chekingByValue === true; then with; else withOut\"></ng-container>\n        <ng-template #with>\n          <ion-label>\n            <h1>Codigo: {{cod}}</h1>\n          </ion-label>\n        </ng-template>\n        <ng-template #withOut>\n          <ion-label>\n            <h1>Alta sin codigo</h1>\n          </ion-label>\n        </ng-template>\n      </ion-col>\n    </ion-row>\n    <form [formGroup]=\"productForm\">\n      <ion-row>\n        <ion-col>\n          <ion-item fill=\"outline\">\n            <ion-label position=\"floating\">Cantidad</ion-label>\n            <ion-input #amountInput type=\"number\" formControlName=\"amount\" placeholder=\"1\"></ion-input>\n          </ion-item>\n        </ion-col>\n        <ion-col size=auto>\n          <ng-container *ngIf=\"(cod !== 'xxxxxxxxxxxx' && chekingByValue) || (cod === 'xxxxxxxxxxxx' && !chekingByValue) || (cod !== 'xxxxxxxxxxxx' && !chekingByValue); then push; else alert\"></ng-container>\n          <ng-template #push>\n            <ion-button size=\"large\" color=\"main-color\" (click)=\"pushProduct()\">\n              <ion-icon name=\"caret-forward\"></ion-icon>\n            </ion-button>\n          </ng-template>\n          <ng-template #alert>\n            <ion-button size=\"large\" color=\"main-color\" (click)=\"presentAlert()\">\n              <ion-icon name=\"caret-forward\"></ion-icon>\n            </ion-button>\n          </ng-template>\n        </ion-col>\n      </ion-row>\n    </form>\n    <ion-row *ngIf=\"chekingByValue\">\n      <ion-col>\n        <ion-button expand=\"block\" color=\"main-color\" (click)=\"scan()\">Escanear<ion-icon name=\"scan\" slot=\"start\">\n          </ion-icon>\n        </ion-button>\n      </ion-col>\n    </ion-row>\n  </ion-card-content>\n</ion-card>\n<app-file-product-confirm-list></app-file-product-confirm-list>";
+module.exports = "<ion-card>\n  <ion-card-content>\n    <ion-row>\n      <ion-col> <!-- Muestra uno u otro dependiendo de si es con o sin COD-->\n        <ng-container *ngIf=\"chekingByValue === true; then with; else withOut\"></ng-container>\n        <ng-template #with>\n          <ion-item button lines=\"none\" detail=\"true\" detail-icon=\"create-outline\" (click)=\"presentAlert()\">\n            <ion-label *ngIf=\"cod !== ''\">\n              <h1>Codigo: {{cod}}</h1>\n            </ion-label>\n            <ion-label *ngIf=\"cod === ''\">\n              <h1>Codigo: xxxxxxxxxxxx</h1>\n            </ion-label>\n          </ion-item>\n        </ng-template>\n        <ng-template #withOut>\n          <ion-label>\n            <h1>Alta sin codigo</h1>\n          </ion-label>\n        </ng-template>\n      </ion-col>\n    </ion-row>\n    <form [formGroup]=\"productForm\">\n      <ion-row>\n        <ion-col>\n          <ion-item fill=\"outline\">\n            <ion-label position=\"floating\">Cantidad</ion-label>\n            <ion-input #amountInput type=\"number\" formControlName=\"amount\" placeholder=\"1\"></ion-input>\n          </ion-item>\n        </ion-col>\n        <ion-col size=auto>\n          <ng-container *ngIf=\"(cod !== '' && chekingByValue) || (cod === '' && !chekingByValue) || (cod !== '' && !chekingByValue); then push; else alert\"></ng-container>\n          <ng-template #push>\n            <ion-button size=\"large\" color=\"main-color\" (click)=\"pushProduct()\">\n              <ion-icon name=\"caret-forward\"></ion-icon>\n            </ion-button>\n          </ng-template>\n          <ng-template #alert>\n            <ion-button size=\"large\" color=\"main-color\" (click)=\"presentAlert()\">\n              <ion-icon name=\"caret-forward\"></ion-icon>\n            </ion-button>\n          </ng-template>\n        </ion-col>\n      </ion-row>\n    </form>\n    <ion-row *ngIf=\"chekingByValue\">\n      <ion-col>\n        <ion-button expand=\"block\" color=\"main-color\" (click)=\"scan()\">Escanear<ion-icon name=\"scan\" slot=\"start\">\n          </ion-icon>\n        </ion-button>\n      </ion-col>\n    </ion-row>\n  </ion-card-content>\n</ion-card>\n<app-file-product-confirm-list></app-file-product-confirm-list>";
 
 /***/ }),
 

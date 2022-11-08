@@ -2,10 +2,16 @@ package app.cstock.ControlStockBackend;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
 @SpringBootApplication
-public class ControlStockBackendApplication {
+public class ControlStockBackendApplication extends SpringBootServletInitializer{
 
+	@Override
+	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder){
+		return builder.sources(ControlStockBackendApplication.class);
+	}
 	public static void main(String[] args) {
 		SpringApplication.run(ControlStockBackendApplication.class, args);
 	}
