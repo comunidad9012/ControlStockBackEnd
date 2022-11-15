@@ -21,7 +21,7 @@ const routes = [
     {
         path: '',
         loadChildren: () => __webpack_require__.e(/*! import() */ "src_app_tablinks_tablinks_module_ts").then(__webpack_require__.bind(__webpack_require__, /*! ./tablinks/tablinks.module */ 2616)).then(m => m.TablinksPageModule),
-    }
+    },
 ];
 let AppRoutingModule = class AppRoutingModule {
 };
