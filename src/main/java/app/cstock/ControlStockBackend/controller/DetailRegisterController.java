@@ -13,39 +13,39 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import app.cstock.ControlStockBackend.dto.DetailRegisterDto;
-import app.cstock.ControlStockBackend.service.DetailRegisterService;
+import app.cstock.ControlStockBackend.dto.DetailArchingDto;
+import app.cstock.ControlStockBackend.service.DetailArchingService;
 
 @RestController
 @RequestMapping("/api")
 public class DetailRegisterController {
 
     @Autowired
-    private DetailRegisterService detailRegisterService;
+    private DetailArchingService detailRegisterService;
 
     @GetMapping("/detail-register")
-    public ResponseEntity<List<DetailRegisterDto>> getAllDetailRegister() {
-        return new ResponseEntity<>(detailRegisterService.getAllDetailRegister(), HttpStatus.OK);
+    public ResponseEntity<List<DetailArchingDto>> getAllDetailRegister() {
+        //return new ResponseEntity<>(detailRegisterService.getAllDetailArching(), HttpStatus.OK);
     }
 
     @GetMapping("/detail-register/{id}")
-    public ResponseEntity<DetailRegisterDto> getByIdDetailRegister(@PathVariable(value = "id") Long id) {
-        return new ResponseEntity<>(detailRegisterService.getByDetailRegisterId(id), HttpStatus.OK);
+    public ResponseEntity<DetailArchingDto> getByIdDetailRegister(@PathVariable(value = "id") Long id) {
+        return new ResponseEntity<>(detailRegisterService.getByDetailArchingId(id), HttpStatus.OK);
     }
 
     @PostMapping("/stock-register/{stock-register-id}/detail-register")
-    public ResponseEntity<DetailRegisterDto> saveDetailRegister(
+    public ResponseEntity<DetailArchingDto> saveDetailRegister(
             @PathVariable(value = "stock-register-id") Long stockRegisterId,
             @RequestParam Long scannedProductId) {
 
-        return new ResponseEntity<>(detailRegisterService.newDetailRegister(stockRegisterId, scannedProductId),
+        return new ResponseEntity<>(detailRegisterService.newDetailArching(stockRegisterId, scannedProductId),
                 HttpStatus.OK);
     }
 
     // Hacerle control de errores al borrar
     @DeleteMapping("/detail-register/{id}")
     public ResponseEntity<String> deleteDetailRegister(@PathVariable(value = "id") Long id) {
-        detailRegisterService.deleteDetailRegister(id);
+        detailRegisterService.deleteDetailArching(id);
         return new ResponseEntity<>("Producto eliminado correctamente", HttpStatus.OK);
     }
 }

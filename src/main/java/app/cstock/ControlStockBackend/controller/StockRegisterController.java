@@ -14,18 +14,18 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import app.cstock.ControlStockBackend.dto.StockRegisterDto;
-import app.cstock.ControlStockBackend.service.StockRegisterService;
+import app.cstock.ControlStockBackend.dto.ArchingDto;
+import app.cstock.ControlStockBackend.service.ArchingService;
 
 @RestController
 @RequestMapping("/api/stock-register")
 public class StockRegisterController {
 
     @Autowired
-    private StockRegisterService stockRegisterService;
+    private ArchingService stockRegisterService;
 
     @GetMapping
-    public ResponseEntity<List<StockRegisterDto>> getAllStockRegister() {
+    public ResponseEntity<List<ArchingDto>> getAllStockRegister() {
         if (stockRegisterService.getAllStockRegister().isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {
@@ -34,20 +34,20 @@ public class StockRegisterController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<StockRegisterDto> getByIdStockRegister(@PathVariable(value = "id") Long id) {
+    public ResponseEntity<ArchingDto> getByIdStockRegister(@PathVariable(value = "id") Long id) {
         return new ResponseEntity<>(stockRegisterService.getByIdStockRegister(id), HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity<StockRegisterDto> createStockRegister(
-            @RequestBody StockRegisterDto stockRegisterDto) {
+    public ResponseEntity<ArchingDto> createStockRegister(
+            @RequestBody ArchingDto stockRegisterDto) {
         return new ResponseEntity<>(stockRegisterService.newStockRegister(stockRegisterDto), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<StockRegisterDto> updateStockRegister(@RequestBody StockRegisterDto stockRegisterDto,
-            @PathVariable(value = "id") Long id) {
-        StockRegisterDto stockRegisterResponse = stockRegisterService.updateStockRegister(stockRegisterDto, id);
+    public ResponseEntity<ArchingDto> updateStockRegister(@RequestBody ArchingDto stockRegisterDto,
+                                                          @PathVariable(value = "id") Long id) {
+        ArchingDto stockRegisterResponse = stockRegisterService.updateStockRegister(stockRegisterDto, id);
         return new ResponseEntity<>(stockRegisterResponse, HttpStatus.OK);
     }
 

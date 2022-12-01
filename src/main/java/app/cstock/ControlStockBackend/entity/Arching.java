@@ -23,8 +23,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "stock_register")
-public class StockRegister {
+@Table(name = "arching")
+public class Arching {
 
     @Id
     @Column(name = "id")
@@ -34,11 +34,7 @@ public class StockRegister {
     @Column(name = "referrer")
     private String referrer;
 
-    @Column(name = "technical")
-    private String technical;
-
-    @Column(name = "total_quantity")
-    private Long totalQuantity;
+    //valance, totalScannedProdcutAmount y totalFileProductAmount son que nos e almacenan simplemente se calculan
 
     @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")

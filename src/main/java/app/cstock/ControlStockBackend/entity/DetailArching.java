@@ -21,23 +21,31 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "detail_register")
-public class DetailRegister {
+@Table(name = "detail_arching")
+public class DetailArching {
 
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "product_name")
+    private String productName;
+
+    @Column(name = "mark")
+    private String mark;
+
+    @Column(name = "employee")
+    private String employee;
+
+    @Column(name = "scanned_product_amount")
+    private Long scannedProductAmount;
+
+    @Column(name = "file_product_amount")
+    private Long fileProductAmount;
+
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "register_id")
-    private StockRegister stockRegister;
-
-    @OneToOne
-    @JoinColumn(name = "scannedProduct")
-    private ScannedProduct scannedProduct;
-
-    @Column(name = "amount")
-    private Long amount;
+    @JoinColumn(name = "arching")
+    private Arching arching;
 
 }
