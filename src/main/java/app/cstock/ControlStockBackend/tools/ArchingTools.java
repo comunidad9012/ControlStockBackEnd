@@ -9,6 +9,7 @@ public class ArchingTools {
 
         Arching arching = new Arching();
 
+        arching.setId(archingDto.getId());
         arching.setReferrer(archingDto.getReferrer());
         arching.setStartDate(archingDto.getStartDate());
         arching.setEndDate(archingDto.getEndDate());

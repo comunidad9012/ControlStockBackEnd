@@ -1,14 +1,15 @@
 package app.cstock.ControlStockBackend.service;
 
-import java.time.LocalDateTime;
+import java.sql.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import app.cstock.ControlStockBackend.dto.DateRangeDto;
+import app.cstock.ControlStockBackend.dto.DetailArchingDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import app.cstock.ControlStockBackend.dto.ArchingDto;
-import app.cstock.ControlStockBackend.entity.ScannedProduct;
 import app.cstock.ControlStockBackend.entity.Arching;
 import app.cstock.ControlStockBackend.exeption.ResourceNoteFoundException;
 import app.cstock.ControlStockBackend.repository.ArchingRepository;
@@ -19,6 +20,9 @@ public class ArchingServiceImpl implements ArchingService {
 
     @Autowired
     private ArchingRepository archingRepository;
+
+    @Autowired
+    private DetailArchingService detailArchingService;
 
     ArchingTools archingTools = new ArchingTools();
 
@@ -44,20 +48,37 @@ public class ArchingServiceImpl implements ArchingService {
 
     @Override
     public Long getTotalFileProductAmount(Long id) {
-        //Hacer cuando termine DetailArchingService
-        return  null;
+        List<DetailArchingDto> detailArchingDtoList = detailArchingService.getAllDetailArching(id);
+        Long sum = 0L;
+        for (DetailArchingDto detailArchingDto: detailArchingDtoList) {
+            sum += detailArchingDto.getFileProductAmount();
+        }
+        return sum;
     }
 
     @Override
     public Long getTotalScannedProductAmount(Long id){
-        //Hacer cuando termine DetailArchingService
-        return null;
+        List<DetailArchingDto> detailArchingDtoList = detailArchingService.getAllDetailArching(id);
+        Long sum = 0L;
+        for (DetailArchingDto detailArchingDto: detailArchingDtoList) {
+            sum += detailArchingDto.getScannedProductAmount();
+        }
+        return sum;
     }
     @Override
     public Long getValence(Long id){
-        //Hacer cuando termine DetailArchingService
-        return null;
+        return getTotalScannedProductAmount(id) - getTotalFileProductAmount(id);
     }
+
+    ///seguir
+    @Override
+    public List<ArchingDto> getByDate(DateRangeDto dateRangeDto) {
+        System.out.println(Date.valueOf(dateRangeDto.getFrom()));
+        System.out.println(Date.valueOf(dateRangeDto.getTo()));
+        List<Arching> archingList = archingRepository.findAllArchingByDate(Date.valueOf(dateRangeDto.getFrom()), Date.valueOf(dateRangeDto.getTo()));
+        return archingList.stream().map(arching -> archingTools.mapDto(arching)).collect(Collectors.toList());
+    }
+
     @Override
     public ArchingDto updateArching(ArchingDto archingDto, Long id) {
 

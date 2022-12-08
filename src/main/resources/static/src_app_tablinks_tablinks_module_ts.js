@@ -33,6 +33,10 @@ const routes = [
                 loadChildren: () => Promise.all(/*! import() */[__webpack_require__.e("default-src_app_components_components_module_ts"), __webpack_require__.e("src_app_arching_arching_module_ts")]).then(__webpack_require__.bind(__webpack_require__, /*! ../arching/arching.module */ 9738)).then(m => m.ArchingPageModule)
             },
             {
+                path: 'file-product',
+                loadChildren: () => Promise.all(/*! import() */[__webpack_require__.e("default-src_app_components_components_module_ts"), __webpack_require__.e("src_app_file-product_file-product_module_ts")]).then(__webpack_require__.bind(__webpack_require__, /*! ../file-product/file-product.module */ 3576)).then(m => m.FileProductPageModule)
+            },
+            {
                 path: '',
                 redirectTo: '/tablinks/home',
                 pathMatch: 'full'
@@ -152,7 +156,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
   \********************************************************/
 /***/ ((module) => {
 
-module.exports = "<ion-tabs>\n  <ion-tab-bar slot=\"bottom\">\n    <ion-tab-button tab=\"arching\">\n      <ion-icon name=\"reader-outline\"></ion-icon>\n      <ion-label>Arqueo</ion-label>\n    </ion-tab-button>\n\n    <ion-tab-button>\n      <ion-icon name=\"document-outline\"></ion-icon>\n      <ion-label>File</ion-label>\n    </ion-tab-button>\n\n    <ion-tab-button tab=\"home\">\n      <ion-icon name=\"barcode-outline\"></ion-icon>\n      <ion-label>Escaner</ion-label>\n    </ion-tab-button>\n  </ion-tab-bar>\n</ion-tabs>";
+module.exports = "<ion-tabs>\n  <ion-tab-bar slot=\"bottom\">\n    <ion-tab-button tab=\"arching\">\n      <ion-icon name=\"reader-outline\"></ion-icon>\n      <ion-label>Arqueo</ion-label>\n    </ion-tab-button>\n\n    <ion-tab-button tab=\"file-product\">\n      <ion-icon name=\"document-text-outline\"></ion-icon>\n      <ion-label>File</ion-label>\n    </ion-tab-button>\n\n    <ion-tab-button tab=\"home\">\n      <ion-icon name=\"barcode-outline\"></ion-icon>\n      <ion-label>Escaner</ion-label>\n    </ion-tab-button>\n  </ion-tab-bar>\n</ion-tabs>\n";
 
 /***/ })
 

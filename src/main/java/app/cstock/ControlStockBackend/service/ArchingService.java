@@ -3,13 +3,15 @@ package app.cstock.ControlStockBackend.service;
 import java.util.List;
 
 import app.cstock.ControlStockBackend.dto.ArchingDto;
-import app.cstock.ControlStockBackend.entity.Arching;
+import app.cstock.ControlStockBackend.dto.DateRangeDto;
 
 public interface ArchingService {
 
     public List<ArchingDto> getAllArching();
 
     public ArchingDto getByIdArching(Long id);
+
+    public List<ArchingDto> getByDate(DateRangeDto dateRangeDto);
 
     public ArchingDto newArching(ArchingDto archingDto);
 

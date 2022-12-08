@@ -103,8 +103,17 @@ __webpack_require__.r(__webpack_exports__);
 
 let ArchingPage = class ArchingPage {
     constructor() {
+        this.page = true;
     }
     ngOnInit() {
+    }
+    changePage() {
+        if (this.page) {
+            this.page = false;
+        }
+        else {
+            this.page = true;
+        }
     }
 };
 ArchingPage.ctorParameters = () => [];
@@ -136,7 +145,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
   \******************************************************/
 /***/ ((module) => {
 
-module.exports = "<ion-header>\n  <ion-toolbar color=\"main-color\">\n    <ion-title>Arqueo</ion-title>\n    <ion-buttons slot=\"secondary\">\n      <ion-button>\n        <ion-icon slot=\"icon-only\" name=\"time-outline\"></ion-icon>\n      </ion-button>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n  <div class=\"main\">\n    <div>\n      <app-actually-arching></app-actually-arching>\n    </div>\n    <div>\n      <app-detail-arching></app-detail-arching>\n    </div>\n  </div>\n  <app-history-arching *ngIf=\"false\"></app-history-arching>\n</ion-content>\n";
+module.exports = "<ion-header>\n  <ion-toolbar color=\"main-color\">\n    <ion-title *ngIf=\"page\">Arqueo Actual</ion-title>\n    <ion-title *ngIf=\"!page\">Historial de arqueos</ion-title>\n    <ion-buttons slot=\"secondary\">\n      <ion-button (click)=\"changePage()\">\n        <ion-icon *ngIf=\"page\" slot=\"icon-only\" name=\"time-outline\"></ion-icon>\n        <ion-icon *ngIf=\"!page\" slot=\"icon-only\" name=\"play-circle-outline\"></ion-icon>\n      </ion-button>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n<ion-content>\n  <div class=\"main\" *ngIf=\"page\">\n    <div>\n      <app-actually-arching></app-actually-arching>\n    </div>\n    <div>\n      <app-detail-arching></app-detail-arching>\n    </div>\n  </div>\n  <app-history-arching *ngIf=\"!page\"></app-history-arching>\n</ion-content>\n";
 
 /***/ })
 

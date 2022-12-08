@@ -9,6 +9,7 @@ public class DetailArchingTools {
     public app.cstock.ControlStockBackend.entity.DetailArching mapEntity(DetailArchingDto detailArchingDto) {
         DetailArching detailArching = new DetailArching();
 
+        detailArching.setId(detailArchingDto.getId());
         detailArching.setProductName(detailArchingDto.getProductName());
         detailArching.setMark(detailArchingDto.getMark());
         detailArching.setEmployee(detailArchingDto.getEmployee());
@@ -20,6 +21,7 @@ public class DetailArchingTools {
     public DetailArchingDto mapDto(app.cstock.ControlStockBackend.entity.DetailArching detailArching) {
         DetailArchingDto detailArchingDto = new DetailArchingDto();
         detailArchingDto.setId(detailArching.getId());
+        detailArchingDto.setProductName(detailArching.getProductName());
         detailArchingDto.setMark(detailArching.getMark());
         detailArchingDto.setEmployee(detailArching.getEmployee());
         detailArchingDto.setScannedProductAmount(detailArching.getScannedProductAmount());

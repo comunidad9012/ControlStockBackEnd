@@ -5,14 +5,12 @@ import java.util.List;
 import app.cstock.ControlStockBackend.dto.DetailArchingDto;
 
 public interface DetailArchingService {
-
-    public List<DetailArchingDto> getAllDetailArching(Long id);
-
+    public List<DetailArchingDto> getAllDetailArching(Long arching);
     public DetailArchingDto getByDetailArchingId(Long id);
 
-    public Integer getValence(Long id);
+    public Long getValence(Long id);
 
-    public DetailArchingDto newDetailArching(Long stockRegisterId, Long scannedProductId);
+    public DetailArchingDto newDetailArching(Long archingId, DetailArchingDto detailArchingDto);
 
     public void deleteDetailArching(Long id);
 
