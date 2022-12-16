@@ -94,115 +94,175 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "FileProductPage": () => (/* binding */ FileProductPage)
 /* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! tslib */ 4929);
-/* harmony import */ var _file_product_page_html_ngResource__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./file-product.page.html?ngResource */ 8858);
-/* harmony import */ var _file_product_page_scss_ngResource__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./file-product.page.scss?ngResource */ 3694);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/core */ 2560);
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ 2508);
-/* harmony import */ var _services_file_product_service_file_product_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../services/file-product-service/file-product.service */ 5931);
+/* harmony import */ var C_Users_Admin_jeroalvarez1_MyProyects_ControlStock_ControlStock_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 1670);
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! tslib */ 4929);
+/* harmony import */ var _file_product_page_html_ngResource__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./file-product.page.html?ngResource */ 8858);
+/* harmony import */ var _file_product_page_scss_ngResource__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./file-product.page.scss?ngResource */ 3694);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/core */ 2560);
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/forms */ 2508);
+/* harmony import */ var _services_file_product_service_file_product_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../services/file-product-service/file-product.service */ 5931);
+/* harmony import */ var _controller_fileProduct_file_product_request_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../controller/fileProduct/file-product-request.service */ 9962);
+/* harmony import */ var _controller_codes_codes_request_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../controller/codes/codes-request.service */ 4762);
 
 
+
+
+/* eslint-disable @typescript-eslint/no-shadow */
+
+/* eslint-disable @typescript-eslint/no-unused-expressions */
 
 /* eslint-disable @typescript-eslint/member-ordering */
+
 /* eslint-disable @typescript-eslint/ban-types */
 
 
 
-let FileProductPage = class FileProductPage {
-    constructor(fileProductService) {
-        this.fileProductService = fileProductService;
-        this.customAlertOptions = {
-            header: 'Configuracion de archivo',
-            subHeader: 'Configure los archivos de productos',
-            message: 'Seleccione solo uno',
-            translucent: true,
-        };
-        this.isOpenForm = false;
-        this.isOpenAsignation = false;
-        this.isOpenList = true;
-        this.formatedFileProductList = [];
-        this.formul();
-    }
-    ngOnInit() {
-        console.log('hola', this.fileProductList);
-        this.fileProductService.triggerFileProductArray.subscribe(data => {
-            this.formul();
-            this.openAsignation(true);
-            this.isOpenAsignation = true;
-            this.fileProductList = data;
-            this.fileProductNameKeys = Object.keys(this.fileProductList[0]);
-        });
-    }
-    formul() {
-        this.newValueAsignation = new _angular_forms__WEBPACK_IMPORTED_MODULE_3__.FormGroup({
-            barcode: new _angular_forms__WEBPACK_IMPORTED_MODULE_3__.FormControl('', _angular_forms__WEBPACK_IMPORTED_MODULE_3__.Validators.required),
-            productName: new _angular_forms__WEBPACK_IMPORTED_MODULE_3__.FormControl('', _angular_forms__WEBPACK_IMPORTED_MODULE_3__.Validators.required),
-            mark: new _angular_forms__WEBPACK_IMPORTED_MODULE_3__.FormControl('', _angular_forms__WEBPACK_IMPORTED_MODULE_3__.Validators.required),
-            amount: new _angular_forms__WEBPACK_IMPORTED_MODULE_3__.FormControl('', _angular_forms__WEBPACK_IMPORTED_MODULE_3__.Validators.required)
-        });
-    }
-    addNewValueAsignation() {
-        const form = this.newValueAsignation.value;
-        const fileProduct = {
-            barcode: form.barcode,
-            productName: form.productName,
-            mark: form.mark,
-            amount: form.amount
-        };
-        //console.log(fileProduct);
-        try {
-            this.fileProductList.forEach(i => {
-                this.formatedFileProductList.push({
-                    barcode: i[fileProduct.barcode],
-                    productName: i[fileProduct.productName],
-                    mark: i[fileProduct.mark],
-                    amount: i[fileProduct.amount]
-                });
-            });
-            console.log(this.formatedFileProductList);
-            this.fileProductService.triggerFormatedList.emit(this.formatedFileProductList);
-        }
-        catch (error) {
-            console.log(error);
-        }
-    }
-    openNewFrom(value) {
-        this.isOpenList = false;
-        this.isOpenAsignation = !value;
-        this.isOpenForm = value;
-    }
-    openAsignation(value) {
-        this.isOpenList = false;
-        this.isOpenForm = !value;
-        if (this.isOpenAsignation) {
-            this.fileProductService.triggerOpenAchiveModule.emit();
-        }
-        else {
-            if (!this.fileProductList) {
-                this.fileProductService.triggerOpenAchiveModule.emit();
-            }
-            else {
-                this.isOpenAsignation = value;
-            }
-        }
-    }
-    openFileProductList() {
-        this.isOpenAsignation = false;
-        this.isOpenForm = false;
-        this.isOpenList = true;
-    }
-};
-FileProductPage.ctorParameters = () => [
-    { type: _services_file_product_service_file_product_service__WEBPACK_IMPORTED_MODULE_2__.FileProductService }
-];
-FileProductPage = (0,tslib__WEBPACK_IMPORTED_MODULE_4__.__decorate)([
-    (0,_angular_core__WEBPACK_IMPORTED_MODULE_5__.Component)({
-        selector: 'app-file-product',
-        template: _file_product_page_html_ngResource__WEBPACK_IMPORTED_MODULE_0__,
-        styles: [_file_product_page_scss_ngResource__WEBPACK_IMPORTED_MODULE_1__]
-    })
-], FileProductPage);
 
+
+
+let FileProductPage = class FileProductPage {
+  constructor(fileProductService, fileProductRequestService, codesRequestService) {
+    this.fileProductService = fileProductService;
+    this.fileProductRequestService = fileProductRequestService;
+    this.codesRequestService = codesRequestService;
+    this.customAlertOptions = {
+      header: 'Configuracion de archivo',
+      subHeader: 'Configure los archivos de productos',
+      message: 'Seleccione solo uno',
+      translucent: true
+    };
+    this.isOpenForm = false;
+    this.isOpenAsignation = false;
+    this.isOpenList = true;
+    this.formatedFileProductList = [];
+    this.codeList = [];
+    this.formul();
+  }
+
+  ngOnInit() {
+    console.log('hola', this.fileProductList);
+    this.fileProductService.triggerFileProductArray.subscribe(data => {
+      this.formul();
+      this.openAsignation(true);
+      this.isOpenAsignation = true;
+      this.fileProductList = data;
+      this.fileProductNameKeys = Object.keys(this.fileProductList[0]);
+    });
+  }
+
+  formul() {
+    this.newValueAsignation = new _angular_forms__WEBPACK_IMPORTED_MODULE_6__.FormGroup({
+      barcode: new _angular_forms__WEBPACK_IMPORTED_MODULE_6__.FormControl('', _angular_forms__WEBPACK_IMPORTED_MODULE_6__.Validators.required),
+      productName: new _angular_forms__WEBPACK_IMPORTED_MODULE_6__.FormControl('', _angular_forms__WEBPACK_IMPORTED_MODULE_6__.Validators.required),
+      mark: new _angular_forms__WEBPACK_IMPORTED_MODULE_6__.FormControl('', _angular_forms__WEBPACK_IMPORTED_MODULE_6__.Validators.required),
+      amount: new _angular_forms__WEBPACK_IMPORTED_MODULE_6__.FormControl('', _angular_forms__WEBPACK_IMPORTED_MODULE_6__.Validators.required)
+    });
+  }
+
+  addNewValueAsignation() {
+    const form = this.newValueAsignation.value;
+    const fileProduct = {
+      barcode: form.barcode,
+      productName: form.productName,
+      mark: form.mark,
+      amount: form.amount
+    }; //console.log(fileProduct);
+
+    try {
+      this.fileProductList.forEach(i => {
+        this.formatedFileProductList.push({
+          barcode: i[fileProduct.barcode],
+          productName: i[fileProduct.productName],
+          mark: i[fileProduct.mark],
+          amount: i[fileProduct.amount]
+        });
+      });
+      this.addFileProductWithCode();
+      this.fileProductList = null;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  addFileProductWithCode() {
+    var _this = this;
+
+    console.log('La lista es: ', this.formatedFileProductList);
+    const listFileProdutList = [];
+    this.formatedFileProductList.forEach( /*#__PURE__*/function () {
+      var _ref = (0,C_Users_Admin_jeroalvarez1_MyProyects_ControlStock_ControlStock_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (i) {
+        _this.fileProduct = {
+          productName: i.productName,
+          mark: i.mark,
+          amount: i.amount
+        };
+        _this.code = {
+          id: i.barcode
+        };
+        listFileProdutList.push({
+          fileProduct: _this.fileProduct,
+          code: _this.code
+        });
+      });
+
+      return function (_x) {
+        return _ref.apply(this, arguments);
+      };
+    }());
+    this.fileProductRequestService.newFileProductsWithCode(listFileProdutList).subscribe(() => {
+      this.openFileProductList();
+    });
+  }
+
+  openNewFrom(value) {
+    this.isOpenList = false;
+    this.isOpenAsignation = !value;
+    this.isOpenForm = value;
+  }
+
+  openAsignation(value) {
+    this.isOpenList = false;
+    this.isOpenForm = !value;
+
+    if (this.isOpenAsignation) {
+      this.fileProductService.triggerOpenAchiveModule.emit();
+    } else {
+      if (!this.fileProductList) {
+        this.fileProductService.triggerOpenAchiveModule.emit();
+      } else {
+        this.isOpenAsignation = value;
+      }
+    }
+  }
+
+  openFileProductList() {
+    var _this2 = this;
+
+    return (0,C_Users_Admin_jeroalvarez1_MyProyects_ControlStock_ControlStock_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      _this2.fileProductService.triggerUpdatedFileList.emit();
+
+      console.log('Despues');
+      _this2.isOpenAsignation = false;
+      _this2.isOpenForm = false;
+      _this2.isOpenList = true;
+    })();
+  }
+
+};
+
+FileProductPage.ctorParameters = () => [{
+  type: _services_file_product_service_file_product_service__WEBPACK_IMPORTED_MODULE_3__.FileProductService
+}, {
+  type: _controller_fileProduct_file_product_request_service__WEBPACK_IMPORTED_MODULE_4__.FileProductRequestService
+}, {
+  type: _controller_codes_codes_request_service__WEBPACK_IMPORTED_MODULE_5__.CodesRequestService
+}];
+
+FileProductPage = (0,tslib__WEBPACK_IMPORTED_MODULE_7__.__decorate)([(0,_angular_core__WEBPACK_IMPORTED_MODULE_8__.Component)({
+  selector: 'app-file-product',
+  template: _file_product_page_html_ngResource__WEBPACK_IMPORTED_MODULE_1__,
+  styles: [_file_product_page_scss_ngResource__WEBPACK_IMPORTED_MODULE_2__]
+})], FileProductPage);
 
 
 /***/ }),

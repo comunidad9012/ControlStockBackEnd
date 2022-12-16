@@ -9,6 +9,7 @@ public class FileProductTools {
 
         FileProduct fileProduct = new FileProduct();
 
+        fileProduct.setId(fileProductDto.getId());
         fileProduct.setProductName(fileProductDto.getProductName());
         fileProduct.setMark(fileProductDto.getMark());
         fileProduct.setAmount(fileProductDto.getAmount());

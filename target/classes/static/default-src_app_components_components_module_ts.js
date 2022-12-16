@@ -1222,6 +1222,9 @@ let FileProductRequestService = class FileProductRequestService {
     newFileProduct(fileProduct) {
         return this.httpClient.post(this.baseURL + '/file-products/new', fileProduct);
     }
+    newFileProductsWithCode(data) {
+        return this.httpClient.post(this.baseURL + '/file-products/code/new', data);
+    }
     getAllFileProducts() {
         return this.httpClient.get(this.baseURL + '/file-products');
     }
@@ -5171,7 +5174,7 @@ module.exports = "<ion-modal [isOpen]=\"isModalOpen\">\n  <ng-template>\n    <io
   \******************************************************************************************/
 /***/ ((module) => {
 
-module.exports = "  <div class=\"main\">\n    <div>\n      <div>\n        <ion-item class=\"searchBar width100\" lines=\"none\">\n          <ion-label><ion-icon name=\"search-outline\"></ion-icon></ion-label>\n          <ion-input placeholder=\"Search\" [(ngModel)]=\"filterTerm\" animated=\"true\"></ion-input>\n        </ion-item>\n      </div>\n    </div>\n    <div class=\"table\">\n      <ion-content>\n        <ion-list *ngFor=\"let fileProduct of fileProductList | filter: filterTerm\">\n          <ion-item>\n            <ion-label>\n              <h2><b>Nombre:</b> {{fileProduct.productName}}</h2>\n              <p><b>Marca:</b> {{fileProduct.mark}}</p>\n              <p><b>Cantidad escaneada:</b> {{fileProduct.amount}}</p>\n            </ion-label>\n            <ion-button shape=\"round\" title=\"Borrar cliente\" color=\"danger\"\n              (click)=\"deleteProduct(fileProduct.id)\">\n              <ion-icon slot=\"icon-only\" name=\"trash-outline\"></ion-icon>\n            </ion-button>\n            <ion-button shape=\"round\" title=\"Editar cliente\" color=\"warning\" (click)=\"productUpdate(fileProduct)\">\n              <ion-icon slot=\"icon-only\" name=\"pencil-outline\"></ion-icon>\n            </ion-button>\n          </ion-item>\n        </ion-list>\n      </ion-content>\n    </div>\n  </div>\n";
+module.exports = "  <div class=\"main\">\n    <div>\n      <div>\n        <ion-item class=\"searchBar width100\" lines=\"none\">\n          <ion-label><ion-icon name=\"search-outline\"></ion-icon></ion-label>\n          <ion-input placeholder=\"Search\" [(ngModel)]=\"filterTerm\" animated=\"true\"></ion-input>\n        </ion-item>\n      </div>\n    </div>\n    <div class=\"table\">\n      <ion-content>\n        <ion-list *ngFor=\"let fileProduct of fileProductList | filter: filterTerm\">\n          <ion-item>\n            <ion-label>\n              <h2><b>Nombre:</b> {{fileProduct.productName}}</h2>\n              <p><b>Marca:</b> {{fileProduct.mark}}</p>\n              <p><b>Cantidad:</b> {{fileProduct.amount}}</p>\n            </ion-label>\n            <ion-button shape=\"round\" title=\"Borrar cliente\" color=\"danger\"\n              (click)=\"deleteProduct(fileProduct.id)\">\n              <ion-icon slot=\"icon-only\" name=\"trash-outline\"></ion-icon>\n            </ion-button>\n            <ion-button shape=\"round\" title=\"Editar cliente\" color=\"warning\" (click)=\"productUpdate(fileProduct)\">\n              <ion-icon slot=\"icon-only\" name=\"pencil-outline\"></ion-icon>\n            </ion-button>\n          </ion-item>\n        </ion-list>\n      </ion-content>\n    </div>\n  </div>\n";
 
 /***/ }),
 

@@ -1,6 +1,7 @@
 package app.cstock.ControlStockBackend.controller;
 
 import app.cstock.ControlStockBackend.dto.FileProductDto;
+import app.cstock.ControlStockBackend.dto.FileProductWithCodeDto;
 import app.cstock.ControlStockBackend.service.FileProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -38,6 +39,12 @@ public class FileProductController {
     @PostMapping("/new")
     public ResponseEntity<FileProductDto> PostFileProduct(@RequestBody FileProductDto fileProduct) {
         return new ResponseEntity<>(fileProductService.postFileProduct(fileProduct), HttpStatus.CREATED);
+    }
+
+    @PostMapping("/code/new")
+    public ResponseEntity<HttpStatus> postFilesProductWithCode(@RequestBody List<FileProductWithCodeDto> listFileProductWithCodeDto){
+        fileProductService.postFilesProductWithCode(listFileProductWithCodeDto);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")

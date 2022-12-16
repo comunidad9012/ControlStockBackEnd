@@ -1,6 +1,7 @@
 package app.cstock.ControlStockBackend.service;
 
 import app.cstock.ControlStockBackend.dto.FileProductDto;
+import app.cstock.ControlStockBackend.dto.FileProductWithCodeDto;
 import app.cstock.ControlStockBackend.entity.Codes;
 import app.cstock.ControlStockBackend.entity.FileProduct;
 import app.cstock.ControlStockBackend.exeption.ResourceNoteFoundException;
@@ -20,6 +21,10 @@ public class FileProductServiceImpl implements FileProductService {
 
     @Autowired
     private FileProductRepository fileProductRepository;
+
+    @Autowired
+    private CodesService codesService;
+
 
     FileProductTools fileProductTools = new FileProductTools();
     CodesTools codesTools = new CodesTools();
@@ -73,6 +78,14 @@ public class FileProductServiceImpl implements FileProductService {
     public FileProductDto postFileProduct(FileProductDto fileProductDto) {
         FileProduct newFileProduct = fileProductRepository.save(fileProductTools.mapEntity(fileProductDto));
         return fileProductTools.mapDto(newFileProduct);
+    }
+
+    @Override
+    public void postFilesProductWithCode(List<FileProductWithCodeDto> listFileProductWithCodeDto) {
+        for (FileProductWithCodeDto i : listFileProductWithCodeDto) {
+            FileProduct fileProduct = fileProductTools.mapEntity(postFileProduct(i.getFileProduct()));
+            codesTools.mapEntity(codesService.addCodes(fileProduct.getId(), i.getCode()));
+        }
     }
 
     @Override
