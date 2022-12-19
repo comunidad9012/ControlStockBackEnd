@@ -49,12 +49,27 @@ public class DetailArchingServiceImpl implements DetailArchingService {
     @Override
     public DetailArchingDto newDetailArching(Long archingId, DetailArchingDto detailArchingDto) {
 
-        Arching arching = archingRepository.findById(archingId)
-                .orElseThrow(() -> new ResourceNoteFoundException("StockRegister", "id", archingId));
-        DetailArching detailArching = detailArchingTools.mapEntity(detailArchingDto);
-        detailArching.setArching(arching);
-        DetailArching saveDetailArching = detailArchingRepository.save(detailArching);
-        return detailArchingTools.mapDto(saveDetailArching);
+        if (detailArchingRepository.existsById(detailArchingDto.getId())){
+            DetailArching detailArchingUpdated = detailArchingRepository.findById(detailArchingDto.getId())
+                    .orElseThrow(() -> new ResourceNoteFoundException("DetailArching", "id", detailArchingDto.getId()));
+            detailArchingUpdated.setScannedProductAmount(detailArchingUpdated.getScannedProductAmount() + detailArchingDto.getScannedProductAmount());
+            return detailArchingTools.mapDto(detailArchingRepository.save(detailArchingUpdated));
+        } else {
+            Arching arching = archingRepository.findById(archingId)
+                    .orElseThrow(() -> new ResourceNoteFoundException("StockRegister", "id", archingId));
+            DetailArching detailArching = detailArchingTools.mapEntity(detailArchingDto);
+            detailArching.setArching(arching);
+            DetailArching saveDetailArching = detailArchingRepository.save(detailArching);
+            return detailArchingTools.mapDto(saveDetailArching);
+        }
+    }
+
+    @Override
+    public void updateDetailArching(DetailArchingDto detailArchingDto) {
+        DetailArching detailArching = detailArchingRepository.findById(detailArchingDto.getId())
+                .orElseThrow(() -> new ResourceNoteFoundException("DetailArching", "id", detailArchingDto.getId()));
+        detailArching.setScannedProductAmount(detailArchingDto.getScannedProductAmount());
+        detailArchingRepository.save(detailArching);
     }
 
     @Override

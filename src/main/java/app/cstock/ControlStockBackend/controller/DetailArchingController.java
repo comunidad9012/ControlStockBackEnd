@@ -39,6 +39,14 @@ public class DetailArchingController {
                 HttpStatus.OK);
     }
 
+    //crear put
+    @PutMapping("/detail-arching")
+    public ResponseEntity<HttpStatus> updateDetailArching(
+            @RequestBody DetailArchingDto detailArchingDto) {
+        detailArchingService.updateDetailArching(detailArchingDto);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
     // Hacerle control de errores al borrar
     @DeleteMapping("/detail-arching/{id}")
     public ResponseEntity<String> deleteDetailRegister(@PathVariable(value = "id") Long id) {

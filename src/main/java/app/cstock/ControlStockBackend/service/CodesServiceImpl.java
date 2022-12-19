@@ -103,6 +103,17 @@ public class CodesServiceImpl implements CodesService {
     }
 
     @Override
+    public void deleteAllCodesFromFileProduct() {
+        List<FileProduct> fileProductList = fileProductRepository.findAll();
+        for (FileProduct fileProduct: fileProductList) {
+            for (Codes code :fileProduct.getCodes()) {
+                fileProduct.removeCode(code.getId());
+            }
+            fileProductRepository.save(fileProduct);
+        }
+    }
+
+    @Override
     public void deleteCodes(String id) {
         codesRepository.delete(getByIdCodesEntity(id));
     }

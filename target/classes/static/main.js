@@ -192,6 +192,15 @@ let ArchingRequestService = class ArchingRequestService {
     setEndDate(archingEndDate, archingId) {
         return this.httpClient.put(this.baseURL + '/arching/' + archingId, archingEndDate);
     }
+    getTotalScannedProductAmount(id) {
+        return this.httpClient.get(this.baseURL + '/arching/scanned-product/amount/' + id);
+    }
+    getTotalFileProductAmount(id) {
+        return this.httpClient.get(this.baseURL + '/arching/file-product/amount/' + id);
+    }
+    getTotalValence(id) {
+        return this.httpClient.get(this.baseURL + '/arching/valence/' + id);
+    }
 };
 ArchingRequestService.ctorParameters = () => [
     { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_0__.HttpClient }

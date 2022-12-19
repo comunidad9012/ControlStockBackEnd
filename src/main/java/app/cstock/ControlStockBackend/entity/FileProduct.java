@@ -42,7 +42,7 @@ public class FileProduct {
     private Set<Codes> codes = new HashSet<>();
 
     @JsonManagedReference
-    @OneToOne(mappedBy = "fileProduct")
+    @OneToOne(mappedBy = "fileProduct", cascade = CascadeType.ALL)
     private ScannedProduct scannedProduct;
 
     public FileProduct() {

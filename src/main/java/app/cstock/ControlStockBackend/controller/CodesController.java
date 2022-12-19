@@ -56,6 +56,12 @@ public class CodesController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    @DeleteMapping("/file-products/codes")
+    public ResponseEntity<HttpStatus> deleteCodesFromFileProduct() {
+        codesService.deleteAllCodesFromFileProduct();
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
     @DeleteMapping("/codes/{id}")
     public ResponseEntity<HttpStatus> deleteCodes(@PathVariable(value = "id") String id) {
         codesService.deleteCodes(id);

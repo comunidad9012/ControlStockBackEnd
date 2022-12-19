@@ -22,6 +22,8 @@ public interface CodesService {
 
     public void deleteCodesFromFileProduct(Long fileProductId, String codesId);
 
+    public void deleteAllCodesFromFileProduct();
+
     public void deleteCodes(String id);
 
     public void deleteAllCodes();
