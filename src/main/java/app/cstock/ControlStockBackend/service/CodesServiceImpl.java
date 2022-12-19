@@ -106,4 +106,9 @@ public class CodesServiceImpl implements CodesService {
     public void deleteCodes(String id) {
         codesRepository.delete(getByIdCodesEntity(id));
     }
+
+    @Override
+    public void deleteAllCodes() {
+        codesRepository.deleteAll();
+    }
 }

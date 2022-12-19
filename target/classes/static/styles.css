@@ -99,6 +99,9 @@
 .main-colorBackGround {
   background-color: var(--ion-color-main-color);
 }
+.alignTexteCenter {
+  text-align: center;
+}
 /**heights**/
 .height100 {
   height: 100%;
@@ -174,6 +177,10 @@
 /**padding**/
 .pading10 {
   padding: 0px 10px;
+}
+/*Margin*/
+.margin10 {
+  margin: 10px;
 }
 /**Importaciones*/
 /*!

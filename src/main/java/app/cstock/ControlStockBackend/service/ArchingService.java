@@ -13,6 +13,7 @@ public interface ArchingService {
 
     public List<ArchingDto> getByDate(DateRangeDto dateRangeDto);
 
+    public ArchingDto getLastOneArching();
     public ArchingDto newArching(ArchingDto archingDto);
 
     public Long getTotalFileProductAmount(Long id);

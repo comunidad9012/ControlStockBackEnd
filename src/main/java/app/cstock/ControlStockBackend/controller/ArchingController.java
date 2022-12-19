@@ -35,9 +35,14 @@ public class ArchingController {
             return new ResponseEntity<>(archingService.getAllArching(), HttpStatus.OK);
         }
     }
-    @GetMapping("/date")
+    @PostMapping("/date")
     public ResponseEntity<List<ArchingDto>> getByDate(@RequestBody DateRangeDto dateRangeDto) {
         return new ResponseEntity<>(archingService.getByDate(dateRangeDto), HttpStatus.OK);
+    }
+
+    @GetMapping("/last-one")
+    public ResponseEntity<ArchingDto> getLastOneArching() {
+        return new ResponseEntity<>(archingService.getLastOneArching(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")

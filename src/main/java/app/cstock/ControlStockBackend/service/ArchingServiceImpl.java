@@ -1,8 +1,8 @@
 package app.cstock.ControlStockBackend.service;
 
-import java.sql.Date;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.Date;
 
 import app.cstock.ControlStockBackend.dto.DateRangeDto;
 import app.cstock.ControlStockBackend.dto.DetailArchingDto;
@@ -73,10 +73,15 @@ public class ArchingServiceImpl implements ArchingService {
     ///seguir
     @Override
     public List<ArchingDto> getByDate(DateRangeDto dateRangeDto) {
-        System.out.println(Date.valueOf(dateRangeDto.getFrom()));
-        System.out.println(Date.valueOf(dateRangeDto.getTo()));
-        List<Arching> archingList = archingRepository.findAllArchingByDate(Date.valueOf(dateRangeDto.getFrom()), Date.valueOf(dateRangeDto.getTo()));
+        System.out.println(dateRangeDto.getFrom());
+        System.out.println(dateRangeDto.getTo());
+        List<Arching> archingList = archingRepository.findAllArchingByDate(dateRangeDto.getFrom(), dateRangeDto.getTo());
         return archingList.stream().map(arching -> archingTools.mapDto(arching)).collect(Collectors.toList());
+    }
+
+    @Override
+    public ArchingDto getLastOneArching() {
+        return archingTools.mapDto(archingRepository.findLastOneArching());
     }
 
     @Override
@@ -84,8 +89,6 @@ public class ArchingServiceImpl implements ArchingService {
 
         Arching arching = archingTools.mapEntity(getByIdArching(id));
 
-        arching.setReferrer(archingDto.getReferrer());
-        arching.setStartDate(archingDto.getStartDate());
         arching.setEndDate(archingDto.getEndDate());
 
         Arching archingUpdated = archingRepository.save(arching);

@@ -27,6 +27,7 @@ C:\Users\Admin\jeroalvarez1\MyProyects\ControlStock\ControlStockBackend-jar\Cont
 C:\Users\Admin\jeroalvarez1\MyProyects\ControlStock\ControlStockBackend-jar\ControlStockBackend\src\main\java\app\cstock\ControlStockBackend\repository\DetailArchingRepository.java
 C:\Users\Admin\jeroalvarez1\MyProyects\ControlStock\ControlStockBackend-jar\ControlStockBackend\src\main\java\app\cstock\ControlStockBackend\service\CodesServiceImpl.java
 C:\Users\Admin\jeroalvarez1\MyProyects\ControlStock\ControlStockBackend-jar\ControlStockBackend\src\main\java\app\cstock\ControlStockBackend\controller\FileProductController.java
+C:\Users\Admin\jeroalvarez1\MyProyects\ControlStock\ControlStockBackend-jar\ControlStockBackend\src\main\java\app\cstock\ControlStockBackend\dto\FileProductWithCodeDto.java
 C:\Users\Admin\jeroalvarez1\MyProyects\ControlStock\ControlStockBackend-jar\ControlStockBackend\src\main\java\app\cstock\ControlStockBackend\service\FileProductService.java
 C:\Users\Admin\jeroalvarez1\MyProyects\ControlStock\ControlStockBackend-jar\ControlStockBackend\src\main\java\app\cstock\ControlStockBackend\service\ArchingServiceImpl.java
 C:\Users\Admin\jeroalvarez1\MyProyects\ControlStock\ControlStockBackend-jar\ControlStockBackend\src\main\java\app\cstock\ControlStockBackend\controller\CodesController.java

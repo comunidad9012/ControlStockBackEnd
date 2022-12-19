@@ -1,7 +1,9 @@
 package app.cstock.ControlStockBackend.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
@@ -9,14 +11,18 @@ import java.util.Date;
 @Setter
 public class DateRangeDto {
 
-    private String from;
+    @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    private Date from;
 
-    private String to;
+    @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    private Date to;
 
     public DateRangeDto() {
     }
 
-    public DateRangeDto(String from, String to) {
+    public DateRangeDto(Date from, Date to) {
         this.from = from;
         this.to = to;
     }

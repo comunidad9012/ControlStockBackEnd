@@ -49,26 +49,60 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "AppComponent": () => (/* binding */ AppComponent)
 /* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! tslib */ 4929);
-/* harmony import */ var _app_component_html_ngResource__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./app.component.html?ngResource */ 3383);
-/* harmony import */ var _app_component_scss_ngResource__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./app.component.scss?ngResource */ 9259);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ 2560);
+/* harmony import */ var C_Users_Admin_jeroalvarez1_MyProyects_ControlStock_ControlStock_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 1670);
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! tslib */ 4929);
+/* harmony import */ var _app_component_html_ngResource__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./app.component.html?ngResource */ 3383);
+/* harmony import */ var _app_component_scss_ngResource__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./app.component.scss?ngResource */ 9259);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/core */ 2560);
+/* harmony import */ var _controller_arching_arching_request_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./controller/arching/arching-request.service */ 5398);
+
+
 
 
 
 
 let AppComponent = class AppComponent {
-    constructor() { }
-};
-AppComponent.ctorParameters = () => [];
-AppComponent = (0,tslib__WEBPACK_IMPORTED_MODULE_2__.__decorate)([
-    (0,_angular_core__WEBPACK_IMPORTED_MODULE_3__.Component)({
-        selector: 'app-root',
-        template: _app_component_html_ngResource__WEBPACK_IMPORTED_MODULE_0__,
-        styles: [_app_component_scss_ngResource__WEBPACK_IMPORTED_MODULE_1__]
-    })
-], AppComponent);
+  constructor(archingRequestService) {
+    this.archingRequestService = archingRequestService;
+  }
 
+  ngOnInit() {
+    var _this = this;
+
+    return (0,C_Users_Admin_jeroalvarez1_MyProyects_ControlStock_ControlStock_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      yield _this.getLastOneArching();
+    })();
+  }
+
+  getLastOneArching() {
+    var _this2 = this;
+
+    return (0,C_Users_Admin_jeroalvarez1_MyProyects_ControlStock_ControlStock_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return yield new Promise((resolve, reject) => {
+        _this2.archingRequestService.getLastOneArching().subscribe(data => {
+          if (data.endDate === null) {
+            localStorage.setItem('arching-open', 'true');
+          } else {
+            localStorage.setItem('arching-open', 'false');
+          }
+
+          resolve();
+        });
+      });
+    })();
+  }
+
+};
+
+AppComponent.ctorParameters = () => [{
+  type: _controller_arching_arching_request_service__WEBPACK_IMPORTED_MODULE_3__.ArchingRequestService
+}];
+
+AppComponent = (0,tslib__WEBPACK_IMPORTED_MODULE_4__.__decorate)([(0,_angular_core__WEBPACK_IMPORTED_MODULE_5__.Component)({
+  selector: 'app-root',
+  template: _app_component_html_ngResource__WEBPACK_IMPORTED_MODULE_1__,
+  styles: [_app_component_scss_ngResource__WEBPACK_IMPORTED_MODULE_2__]
+})], AppComponent);
 
 
 /***/ }),
@@ -112,6 +146,61 @@ AppModule = (0,tslib__WEBPACK_IMPORTED_MODULE_3__.__decorate)([
         bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_0__.AppComponent],
     })
 ], AppModule);
+
+
+
+/***/ }),
+
+/***/ 5398:
+/*!***************************************************************!*\
+  !*** ./src/app/controller/arching/arching-request.service.ts ***!
+  \***************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "ArchingRequestService": () => (/* binding */ ArchingRequestService)
+/* harmony export */ });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! tslib */ 4929);
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/common/http */ 8987);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ 2560);
+
+
+
+let ArchingRequestService = class ArchingRequestService {
+    constructor(httpClient) {
+        this.httpClient = httpClient;
+        //baseURL = 'http://34.95.208.112:8080/ControlStockBackendDeploy-0.0.1-SNAPSHOT/api';
+        this.baseURL = 'http://localhost:8080/api';
+    }
+    newArching(arching) {
+        return this.httpClient.post(this.baseURL + '/arching', arching);
+    }
+    getAllArching() {
+        return this.httpClient.get(this.baseURL + '/arching');
+    }
+    getArchingByDate(dateRange) {
+        return this.httpClient.post(this.baseURL + '/arching/date', dateRange);
+    }
+    getArchingById(id) {
+        return this.httpClient.get(this.baseURL + '/arching/' + id);
+    }
+    getLastOneArching() {
+        return this.httpClient.get(this.baseURL + '/arching/last-one');
+    }
+    setEndDate(archingEndDate, archingId) {
+        return this.httpClient.put(this.baseURL + '/arching/' + archingId, archingEndDate);
+    }
+};
+ArchingRequestService.ctorParameters = () => [
+    { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_0__.HttpClient }
+];
+ArchingRequestService = (0,tslib__WEBPACK_IMPORTED_MODULE_1__.__decorate)([
+    (0,_angular_core__WEBPACK_IMPORTED_MODULE_2__.Injectable)({
+        providedIn: 'root'
+    })
+], ArchingRequestService);
 
 
 

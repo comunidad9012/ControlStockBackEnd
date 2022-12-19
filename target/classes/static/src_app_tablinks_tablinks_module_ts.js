@@ -1,6 +1,49 @@
 "use strict";
 (self["webpackChunkapp"] = self["webpackChunkapp"] || []).push([["src_app_tablinks_tablinks_module_ts"],{
 
+/***/ 8956:
+/*!***************************************!*\
+  !*** ./src/app/arching-open.guard.ts ***!
+  \***************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "ArchingOpenGuard": () => (/* binding */ ArchingOpenGuard)
+/* harmony export */ });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! tslib */ 4929);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ 2560);
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @ionic/angular */ 3819);
+
+
+
+let ArchingOpenGuard = class ArchingOpenGuard {
+    constructor(navController) {
+        this.navController = navController;
+    }
+    canActivate(route, state) {
+        if (localStorage.getItem('arching-open') === 'true') {
+            return true;
+        }
+        else if (localStorage.getItem('arching-open') === 'false') {
+            this.navController.navigateRoot('tablinks/arching');
+            return false;
+        }
+    }
+};
+ArchingOpenGuard.ctorParameters = () => [
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_0__.NavController }
+];
+ArchingOpenGuard = (0,tslib__WEBPACK_IMPORTED_MODULE_1__.__decorate)([
+    (0,_angular_core__WEBPACK_IMPORTED_MODULE_2__.Injectable)({
+        providedIn: 'root'
+    })
+], ArchingOpenGuard);
+
+
+
+/***/ }),
+
 /***/ 3030:
 /*!*****************************************************!*\
   !*** ./src/app/tablinks/tablinks-routing.module.ts ***!
@@ -11,10 +54,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "TablinksPageRoutingModule": () => (/* binding */ TablinksPageRoutingModule)
 /* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! tslib */ 4929);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ 2560);
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ 124);
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! tslib */ 4929);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ 2560);
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ 124);
 /* harmony import */ var _tablinks_page__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./tablinks.page */ 7056);
+/* harmony import */ var _arching_open_guard__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../arching-open.guard */ 8956);
+
 
 
 
@@ -26,7 +71,8 @@ const routes = [
         children: [
             {
                 path: 'home',
-                loadChildren: () => Promise.all(/*! import() */[__webpack_require__.e("default-src_app_components_components_module_ts"), __webpack_require__.e("src_app_home_home_module_ts")]).then(__webpack_require__.bind(__webpack_require__, /*! ../home/home.module */ 3467)).then(m => m.HomePageModule)
+                loadChildren: () => Promise.all(/*! import() */[__webpack_require__.e("default-src_app_components_components_module_ts"), __webpack_require__.e("src_app_home_home_module_ts")]).then(__webpack_require__.bind(__webpack_require__, /*! ../home/home.module */ 3467)).then(m => m.HomePageModule),
+                canActivate: [_arching_open_guard__WEBPACK_IMPORTED_MODULE_1__.ArchingOpenGuard]
             },
             {
                 path: 'arching',
@@ -34,7 +80,8 @@ const routes = [
             },
             {
                 path: 'file-product',
-                loadChildren: () => Promise.all(/*! import() */[__webpack_require__.e("default-src_app_components_components_module_ts"), __webpack_require__.e("src_app_file-product_file-product_module_ts")]).then(__webpack_require__.bind(__webpack_require__, /*! ../file-product/file-product.module */ 3576)).then(m => m.FileProductPageModule)
+                loadChildren: () => Promise.all(/*! import() */[__webpack_require__.e("default-src_app_components_components_module_ts"), __webpack_require__.e("src_app_file-product_file-product_module_ts")]).then(__webpack_require__.bind(__webpack_require__, /*! ../file-product/file-product.module */ 3576)).then(m => m.FileProductPageModule),
+                canActivate: [_arching_open_guard__WEBPACK_IMPORTED_MODULE_1__.ArchingOpenGuard]
             },
             {
                 path: '',
@@ -51,10 +98,10 @@ const routes = [
 ];
 let TablinksPageRoutingModule = class TablinksPageRoutingModule {
 };
-TablinksPageRoutingModule = (0,tslib__WEBPACK_IMPORTED_MODULE_1__.__decorate)([
-    (0,_angular_core__WEBPACK_IMPORTED_MODULE_2__.NgModule)({
-        imports: [_angular_router__WEBPACK_IMPORTED_MODULE_3__.RouterModule.forChild(routes)],
-        exports: [_angular_router__WEBPACK_IMPORTED_MODULE_3__.RouterModule],
+TablinksPageRoutingModule = (0,tslib__WEBPACK_IMPORTED_MODULE_2__.__decorate)([
+    (0,_angular_core__WEBPACK_IMPORTED_MODULE_3__.NgModule)({
+        imports: [_angular_router__WEBPACK_IMPORTED_MODULE_4__.RouterModule.forChild(routes)],
+        exports: [_angular_router__WEBPACK_IMPORTED_MODULE_4__.RouterModule],
     })
 ], TablinksPageRoutingModule);
 

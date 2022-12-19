@@ -61,4 +61,10 @@ public class CodesController {
         codesService.deleteCodes(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+    @DeleteMapping("/codes")
+    public ResponseEntity<HttpStatus> deleteAllCodes() {
+        codesService.deleteAllCodes();
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 }
