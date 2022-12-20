@@ -6,6 +6,7 @@ import app.cstock.ControlStockBackend.entity.Codes;
 import app.cstock.ControlStockBackend.entity.FileProduct;
 import app.cstock.ControlStockBackend.exeption.ResourceNoteFoundException;
 import app.cstock.ControlStockBackend.repository.FileProductRepository;
+import app.cstock.ControlStockBackend.repository.ScannedProductRepository;
 import app.cstock.ControlStockBackend.tools.CodesTools;
 import app.cstock.ControlStockBackend.tools.FileProductTools;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,9 @@ public class FileProductServiceImpl implements FileProductService {
 
     @Autowired
     private FileProductRepository fileProductRepository;
+
+    @Autowired
+    private ScannedProductRepository scaneedProductRepository;
 
     @Autowired
     private CodesService codesService;
@@ -103,11 +107,14 @@ public class FileProductServiceImpl implements FileProductService {
 
     @Override
     public void deleteFileProduct(Long id) {
+        FileProduct fileProduct = getByIdFileProductEntity(id);
+        scaneedProductRepository.deleteById(fileProduct.getScannedProduct().getId());
         fileProductRepository.delete(getByIdFileProductEntity(id));
     }
 
     @Override
     public void deleteAllFileProducts() {
+        scaneedProductRepository.deleteAll();
         fileProductRepository.deleteAll();
     }
 

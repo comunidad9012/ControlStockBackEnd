@@ -7,6 +7,8 @@ import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
+import java.util.Objects;
+
 //import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Getter
@@ -41,5 +43,4 @@ public class ScannedProduct {
         this.amount = amount;
         this.fileProduct = fileProduct;
     }
-
 }

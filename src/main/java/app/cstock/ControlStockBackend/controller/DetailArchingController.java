@@ -49,13 +49,13 @@ public class DetailArchingController {
 
     // Hacerle control de errores al borrar
     @DeleteMapping("/detail-arching/{id}")
-    public ResponseEntity<String> deleteDetailRegister(@PathVariable(value = "id") Long id) {
+    public ResponseEntity<HttpStatus> deleteDetailRegister(@PathVariable(value = "id") Long id) {
         detailArchingService.deleteDetailArching(id);
-        return new ResponseEntity<>("Producto eliminado correctamente", HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
     @DeleteMapping("/detailarching/deleteall/{id}")
-    public ResponseEntity<String> deleteAllDetailArching(@PathVariable(value = "id") Long id){
+    public ResponseEntity<HttpStatus> deleteAllDetailArching(@PathVariable(value = "id") Long id){
         detailArchingService.deleteAllDetailArching(id);
-        return new ResponseEntity<>("Productos eliminados correctamente", HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

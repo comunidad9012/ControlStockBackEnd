@@ -70,6 +70,10 @@ let ActuallyArchingComponent = class ActuallyArchingComponent {
       });
 
       yield _this.getLastOneArching();
+
+      _this.archingService.triggerReloadActuallyArching.subscribe( /*#__PURE__*/(0,C_Users_Admin_jeroalvarez1_MyProyects_ControlStock_ControlStock_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+        yield _this.getLastOneArching();
+      }));
     })();
   }
 
@@ -77,7 +81,7 @@ let ActuallyArchingComponent = class ActuallyArchingComponent {
     var _this2 = this;
 
     this.archingService.triggerOpenArchingDetail.subscribe( /*#__PURE__*/function () {
-      var _ref = (0,C_Users_Admin_jeroalvarez1_MyProyects_ControlStock_ControlStock_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (dat) {
+      var _ref2 = (0,C_Users_Admin_jeroalvarez1_MyProyects_ControlStock_ControlStock_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (dat) {
         if (dat.endDate === null) {
           _this2.end = 'Sin finalizar';
         } else {
@@ -98,7 +102,7 @@ let ActuallyArchingComponent = class ActuallyArchingComponent {
       });
 
       return function (_x) {
-        return _ref.apply(this, arguments);
+        return _ref2.apply(this, arguments);
       };
     }());
   }
@@ -109,7 +113,7 @@ let ActuallyArchingComponent = class ActuallyArchingComponent {
     return (0,C_Users_Admin_jeroalvarez1_MyProyects_ControlStock_ControlStock_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       return yield new Promise((resolve, reject) => {
         _this3.archingRequestService.getLastOneArching().subscribe( /*#__PURE__*/function () {
-          var _ref2 = (0,C_Users_Admin_jeroalvarez1_MyProyects_ControlStock_ControlStock_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (data) {
+          var _ref3 = (0,C_Users_Admin_jeroalvarez1_MyProyects_ControlStock_ControlStock_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (data) {
             if (data.endDate === null) {
               _this3.end = 'Sin finalizar';
             } else {
@@ -131,7 +135,7 @@ let ActuallyArchingComponent = class ActuallyArchingComponent {
           });
 
           return function (_x2) {
-            return _ref2.apply(this, arguments);
+            return _ref3.apply(this, arguments);
           };
         }());
       });
@@ -139,6 +143,8 @@ let ActuallyArchingComponent = class ActuallyArchingComponent {
   }
 
   closeArching() {
+    var _this4 = this;
+
     const actualyDate = new Date();
     const archingEndDate = {
       endDate: (0,date_fns__WEBPACK_IMPORTED_MODULE_8__["default"])((0,date_fns__WEBPACK_IMPORTED_MODULE_9__["default"])((0,date_fns__WEBPACK_IMPORTED_MODULE_8__["default"])(actualyDate, 'yyyy-MM-dd')), 'yyyy-MM-dd hh:mm:ss')
@@ -152,20 +158,27 @@ let ActuallyArchingComponent = class ActuallyArchingComponent {
       console.log(data);
       this.fileProductRequestService.deleteAllFileProducts().subscribe(dat => {
         console.log(dat);
-        this.codesRequestService.deleteAllCodes().subscribe(da => {
-          console.log(da);
-        });
+        this.codesRequestService.deleteAllCodes().subscribe( /*#__PURE__*/function () {
+          var _ref4 = (0,C_Users_Admin_jeroalvarez1_MyProyects_ControlStock_ControlStock_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (da) {
+            console.log(da);
+            yield _this4.getLastOneArching();
+          });
+
+          return function (_x3) {
+            return _ref4.apply(this, arguments);
+          };
+        }());
       });
     });
   }
 
   getAllDetailArching(id) {
-    var _this4 = this;
+    var _this5 = this;
 
     return (0,C_Users_Admin_jeroalvarez1_MyProyects_ControlStock_ControlStock_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       return yield new Promise((resolve, reject) => {
-        _this4.detailArchingRequestService.getAllDetailArching(id).subscribe(data => {
-          _this4.detailArchingList = data;
+        _this5.detailArchingRequestService.getAllDetailArching(id).subscribe(data => {
+          _this5.detailArchingList = data;
           resolve();
         });
       });
@@ -173,13 +186,13 @@ let ActuallyArchingComponent = class ActuallyArchingComponent {
   }
 
   getTotalScannedProductAmount(id) {
-    var _this5 = this;
+    var _this6 = this;
 
     return (0,C_Users_Admin_jeroalvarez1_MyProyects_ControlStock_ControlStock_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       return yield new Promise((resolve, reject) => {
-        _this5.archingRequestService.getTotalScannedProductAmount(id).subscribe(data => {
+        _this6.archingRequestService.getTotalScannedProductAmount(id).subscribe(data => {
           console.log(data);
-          _this5.arching.scannedProductAmount = data;
+          _this6.arching.scannedProductAmount = data;
           resolve();
         });
       });
@@ -187,12 +200,12 @@ let ActuallyArchingComponent = class ActuallyArchingComponent {
   }
 
   getTotalFileProductAmount(id) {
-    var _this6 = this;
+    var _this7 = this;
 
     return (0,C_Users_Admin_jeroalvarez1_MyProyects_ControlStock_ControlStock_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       return yield new Promise((resolve, reject) => {
-        _this6.archingRequestService.getTotalFileProductAmount(id).subscribe(data => {
-          _this6.arching.fileProductAmount = data;
+        _this7.archingRequestService.getTotalFileProductAmount(id).subscribe(data => {
+          _this7.arching.fileProductAmount = data;
           resolve();
         });
       });
@@ -200,12 +213,12 @@ let ActuallyArchingComponent = class ActuallyArchingComponent {
   }
 
   getTotalValence(id) {
-    var _this7 = this;
+    var _this8 = this;
 
     return (0,C_Users_Admin_jeroalvarez1_MyProyects_ControlStock_ControlStock_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       return yield new Promise((resolve, reject) => {
-        _this7.archingRequestService.getTotalValence(id).subscribe(data => {
-          _this7.arching.valence = data;
+        _this8.archingRequestService.getTotalValence(id).subscribe(data => {
+          _this8.arching.valence = data;
           resolve();
         });
       });
@@ -309,15 +322,11 @@ let AlertsService = class AlertsService {
         }, {
           text: 'Eliminar',
           handler: () => {
-            _this2.scannerRequestService.deleteScannedProduct(id).subscribe(data => {
-              console.log('Eliminado', data);
+            _this2.scannerRequestService.deleteScannedProduct(id).subscribe(() => {
+              console.log('Eliminado');
 
               _this2.detailArchingRequestService.deleteDetailArching(id).subscribe(() => {
-                _this2.scannerRequestService.getAllScannedProduct().subscribe(requestData => {
-                  console.log('Toda la lista es: ', requestData);
-
-                  _this2.scannerService.triggerUpdatedListScanned.emit(requestData);
-                });
+                _this2.scannerService.triggerUpdatedListScanned.emit();
               });
             });
           }
@@ -327,7 +336,7 @@ let AlertsService = class AlertsService {
     })();
   }
 
-  deleteFileProduct(id) {
+  deleteFileProduct(id, scannedProductId) {
     var _this3 = this;
 
     return (0,C_Users_Admin_jeroalvarez1_MyProyects_ControlStock_ControlStock_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
@@ -344,8 +353,10 @@ let AlertsService = class AlertsService {
             _this3.fileProductRequestService.deletelFileProduct(id).subscribe(data => {
               console.log('Eliminado', data);
 
-              _this3.scannerRequestService.getAllScannedProduct().subscribe(() => {
+              _this3.detailArchingRequestService.deleteDetailArching(scannedProductId).subscribe(() => {
                 _this3.fileProductService.triggerUpdatedFileList.emit();
+
+                _this3.scannerService.triggerUpdatedListScanned.emit();
               });
             });
           }
@@ -385,9 +396,7 @@ let AlertsService = class AlertsService {
               };
 
               _this4.detailArchingRequestService.updateDetailArching(detailArching).subscribe(() => {
-                _this4.scannerRequestService.getAllScannedProduct().subscribe(returnData => {
-                  _this4.scannerService.triggerUpdatedListScanned.emit(returnData);
-                });
+                _this4.scannerService.triggerUpdatedListScanned.emit();
               });
             });
           }
@@ -670,15 +679,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "FileProductConfirmListComponent": () => (/* binding */ FileProductConfirmListComponent)
 /* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! tslib */ 4929);
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! tslib */ 4929);
 /* harmony import */ var _file_product_confirm_list_component_html_ngResource__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./file-product-confirm-list.component.html?ngResource */ 9187);
 /* harmony import */ var _file_product_confirm_list_component_scss_ngResource__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./file-product-confirm-list.component.scss?ngResource */ 128);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/core */ 2560);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/core */ 2560);
 /* harmony import */ var src_app_controller_codes_codes_request_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/controller/codes/codes-request.service */ 4762);
 /* harmony import */ var src_app_controller_scanner_scanner_request_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/controller/scanner/scanner-request.service */ 431);
 /* harmony import */ var src_app_services_scanner_service_scanner_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/scanner-service/scanner.service */ 9500);
 /* harmony import */ var src_app_controller_detail_arching_detail_arching_request_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/controller/detail-arching/detail-arching-request.service */ 9700);
 /* harmony import */ var src_app_controller_arching_arching_request_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/controller/arching/arching-request.service */ 5398);
+/* harmony import */ var src_app_services_arching_service_arching_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/services/arching-service/arching.service */ 1285);
+
 
 
 
@@ -689,12 +700,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let FileProductConfirmListComponent = class FileProductConfirmListComponent {
-    constructor(scannerService, codesRequestService, scannerRequestService, detailArchingRequestService, archingRequestService) {
+    constructor(scannerService, codesRequestService, scannerRequestService, detailArchingRequestService, archingRequestService, archingService) {
         this.scannerService = scannerService;
         this.codesRequestService = codesRequestService;
         this.scannerRequestService = scannerRequestService;
         this.detailArchingRequestService = detailArchingRequestService;
         this.archingRequestService = archingRequestService;
+        this.archingService = archingService;
         this.isModalOpen = false;
         this.searchby = true; // busqueda por cod o nombre, true === cod
         this.varNewFileProduct = false;
@@ -770,6 +782,7 @@ let FileProductConfirmListComponent = class FileProductConfirmListComponent {
             this.archingRequestService.getLastOneArching().subscribe((data) => {
                 this.detailArchingRequestService.newDetailArching(data.id, detailArching).subscribe((dat) => {
                     console.log(dat);
+                    this.archingService.triggerReloadActuallyArching.emit();
                 });
             });
             this.scannerRequestService.getAllScannedProduct().subscribe((data) => {
@@ -804,10 +817,11 @@ FileProductConfirmListComponent.ctorParameters = () => [
     { type: src_app_controller_codes_codes_request_service__WEBPACK_IMPORTED_MODULE_2__.CodesRequestService },
     { type: src_app_controller_scanner_scanner_request_service__WEBPACK_IMPORTED_MODULE_3__.ScannerRequestService },
     { type: src_app_controller_detail_arching_detail_arching_request_service__WEBPACK_IMPORTED_MODULE_5__.DetailArchingRequestService },
-    { type: src_app_controller_arching_arching_request_service__WEBPACK_IMPORTED_MODULE_6__.ArchingRequestService }
+    { type: src_app_controller_arching_arching_request_service__WEBPACK_IMPORTED_MODULE_6__.ArchingRequestService },
+    { type: src_app_services_arching_service_arching_service__WEBPACK_IMPORTED_MODULE_7__.ArchingService }
 ];
-FileProductConfirmListComponent = (0,tslib__WEBPACK_IMPORTED_MODULE_7__.__decorate)([
-    (0,_angular_core__WEBPACK_IMPORTED_MODULE_8__.Component)({
+FileProductConfirmListComponent = (0,tslib__WEBPACK_IMPORTED_MODULE_8__.__decorate)([
+    (0,_angular_core__WEBPACK_IMPORTED_MODULE_9__.Component)({
         selector: 'app-file-product-confirm-list',
         template: _file_product_confirm_list_component_html_ngResource__WEBPACK_IMPORTED_MODULE_0__,
         styles: [_file_product_confirm_list_component_scss_ngResource__WEBPACK_IMPORTED_MODULE_1__]
@@ -859,8 +873,8 @@ let FileProductListComponent = class FileProductListComponent {
             this.fileProductList = data;
         });
     }
-    deleteProduct(id) {
-        this.alertsService.deleteFileProduct(id);
+    deleteProduct(id, scannedProductId) {
+        this.alertsService.deleteFileProduct(id, scannedProductId);
         console.log('El id es: ', id);
     }
     productUpdate(fileProduct) {
@@ -946,6 +960,10 @@ let FileProductUpdateComponent = class FileProductUpdateComponent {
             this.isModalOpen = false;
         }
     }
+    closse() {
+        this.isModalOpen = false;
+        this.fileProductService.triggerOpenList.emit();
+    }
 };
 FileProductUpdateComponent.ctorParameters = () => [
     { type: src_app_services_file_product_service_file_product_service__WEBPACK_IMPORTED_MODULE_2__.FileProductService }
@@ -972,14 +990,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "HistoryArchingComponent": () => (/* binding */ HistoryArchingComponent)
 /* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! tslib */ 4929);
-/* harmony import */ var _history_arching_component_html_ngResource__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./history-arching.component.html?ngResource */ 3266);
-/* harmony import */ var _history_arching_component_scss_ngResource__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./history-arching.component.scss?ngResource */ 6613);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/core */ 2560);
-/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! date-fns */ 6712);
-/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! date-fns */ 6527);
-/* harmony import */ var src_app_controller_arching_arching_request_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/controller/arching/arching-request.service */ 5398);
-/* harmony import */ var src_app_services_arching_service_arching_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/services/arching-service/arching.service */ 1285);
+/* harmony import */ var C_Users_Admin_jeroalvarez1_MyProyects_ControlStock_ControlStock_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 1670);
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! tslib */ 4929);
+/* harmony import */ var _history_arching_component_html_ngResource__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./history-arching.component.html?ngResource */ 3266);
+/* harmony import */ var _history_arching_component_scss_ngResource__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./history-arching.component.scss?ngResource */ 6613);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/core */ 2560);
+/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! date-fns */ 6712);
+/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! date-fns */ 6527);
+/* harmony import */ var src_app_controller_arching_arching_request_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/controller/arching/arching-request.service */ 5398);
+/* harmony import */ var src_app_services_arching_service_arching_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/arching-service/arching.service */ 1285);
+
 
 
 
@@ -988,99 +1008,184 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-let HistoryArchingComponent = class HistoryArchingComponent {
-    constructor(archingService, archingRequestService) {
-        this.archingService = archingService;
-        this.archingRequestService = archingRequestService;
-        this.dateFrom = new Date();
-        this.dateTo = new Date();
-        this.formattedStringFrom = '';
-        this.formattedStringTo = '';
-        this.desde = '';
-        this.hasta = '';
-        this.archingList = [];
-        this.page = false;
-    }
-    ngOnInit() {
-        this.archingService.triggerChangePage.subscribe((data) => {
-            console.log(data);
-            if (this.page) {
-                this.page = false;
-            }
-            else {
-                this.page = true;
-            }
-        });
-        this.setToday();
-        this.getArchingByDate();
-        this.archingService.triggerChangeData.subscribe((data) => {
-            if (data.fromOrTo === 1) {
-                this.dateFrom = data.date;
-                this.formattedStringFrom = (0,date_fns__WEBPACK_IMPORTED_MODULE_4__["default"])((0,date_fns__WEBPACK_IMPORTED_MODULE_5__["default"])(data.date), 'yyyy-MM-dd');
-                this.desde = (0,date_fns__WEBPACK_IMPORTED_MODULE_4__["default"])((0,date_fns__WEBPACK_IMPORTED_MODULE_5__["default"])(data.date), 'yyyy-MM-dd hh:mm:ss');
-            }
-            else if (data.fromOrTo === 2) {
-                this.dateTo = data.date;
-                this.formattedStringTo = (0,date_fns__WEBPACK_IMPORTED_MODULE_4__["default"])((0,date_fns__WEBPACK_IMPORTED_MODULE_5__["default"])(data.date), 'yyyy-MM-dd');
-                this.hasta = (0,date_fns__WEBPACK_IMPORTED_MODULE_4__["default"])((0,date_fns__WEBPACK_IMPORTED_MODULE_5__["default"])(data.date), 'yyyy-MM-dd hh:mm:ss');
-            }
-            this.getArchingByDate();
-        });
-    }
-    setToday() {
-        this.dateFrom.setDate(this.dateFrom.getDate() - 60);
-        this.formattedStringFrom = (0,date_fns__WEBPACK_IMPORTED_MODULE_4__["default"])((0,date_fns__WEBPACK_IMPORTED_MODULE_5__["default"])((0,date_fns__WEBPACK_IMPORTED_MODULE_4__["default"])(this.dateFrom, 'yyyy-MM-dd')), 'yyyy-MM-dd');
-        this.formattedStringTo = (0,date_fns__WEBPACK_IMPORTED_MODULE_4__["default"])((0,date_fns__WEBPACK_IMPORTED_MODULE_5__["default"])((0,date_fns__WEBPACK_IMPORTED_MODULE_4__["default"])(this.dateTo, 'yyyy-MM-dd')), 'yyyy-MM-dd');
-        this.desde = (0,date_fns__WEBPACK_IMPORTED_MODULE_4__["default"])((0,date_fns__WEBPACK_IMPORTED_MODULE_5__["default"])((0,date_fns__WEBPACK_IMPORTED_MODULE_4__["default"])(this.dateFrom, 'yyyy-MM-dd')), 'yyyy-MM-dd hh:ss:mm');
-        this.hasta = (0,date_fns__WEBPACK_IMPORTED_MODULE_4__["default"])((0,date_fns__WEBPACK_IMPORTED_MODULE_5__["default"])((0,date_fns__WEBPACK_IMPORTED_MODULE_4__["default"])(this.dateTo, 'yyyy-MM-dd')), 'yyyy-MM-dd hh:ss:mm');
-    }
-    openCalendar(type) {
-        let date;
-        if (type === 1) {
-            date = this.formattedStringFrom;
-        }
-        else if (type === 2) {
-            date = this.formattedStringTo;
-        }
-        this.archingService.triggerOpenCalendarModal.emit({
-            typ: type,
-            setDate: date
-        });
-    }
-    getAllArching() {
-        this.archingRequestService.getAllArching().subscribe(data => {
-            this.archingList = data;
-        });
-    }
-    getArchingByDate() {
-        const dateRange = {
-            from: this.desde,
-            to: this.hasta
-        };
-        console.log(dateRange);
-        this.archingRequestService.getArchingByDate(dateRange).subscribe(data => {
-            this.archingList = data;
-            console.log(data);
-        });
-    }
-    openArchingDetail(id) {
-        this.archingRequestService.getArchingById(id).subscribe(dat => {
-            this.archingService.triggerOpenArchingDetail.emit(dat);
-        });
-    }
-};
-HistoryArchingComponent.ctorParameters = () => [
-    { type: src_app_services_arching_service_arching_service__WEBPACK_IMPORTED_MODULE_3__.ArchingService },
-    { type: src_app_controller_arching_arching_request_service__WEBPACK_IMPORTED_MODULE_2__.ArchingRequestService }
-];
-HistoryArchingComponent = (0,tslib__WEBPACK_IMPORTED_MODULE_6__.__decorate)([
-    (0,_angular_core__WEBPACK_IMPORTED_MODULE_7__.Component)({
-        selector: 'app-history-arching',
-        template: _history_arching_component_html_ngResource__WEBPACK_IMPORTED_MODULE_0__,
-        styles: [_history_arching_component_scss_ngResource__WEBPACK_IMPORTED_MODULE_1__]
-    })
-], HistoryArchingComponent);
 
+let HistoryArchingComponent = class HistoryArchingComponent {
+  constructor(archingService, archingRequestService) {
+    this.archingService = archingService;
+    this.archingRequestService = archingRequestService;
+    this.dateFrom = new Date();
+    this.dateTo = new Date();
+    this.formattedStringFrom = '';
+    this.formattedStringTo = '';
+    this.desde = '';
+    this.hasta = '';
+    this.archingList = [];
+    this.page = false;
+  }
+
+  ngOnInit() {
+    this.archingService.triggerChangePage.subscribe(data => {
+      console.log(data);
+
+      if (this.page) {
+        this.page = false;
+      } else {
+        this.page = true;
+      }
+    });
+    this.setToday();
+    this.getArchingByDate();
+    this.archingService.triggerChangeData.subscribe(data => {
+      if (data.fromOrTo === 1) {
+        this.dateFrom = data.date;
+        this.formattedStringFrom = (0,date_fns__WEBPACK_IMPORTED_MODULE_5__["default"])((0,date_fns__WEBPACK_IMPORTED_MODULE_6__["default"])(data.date), 'yyyy-MM-dd');
+        this.desde = (0,date_fns__WEBPACK_IMPORTED_MODULE_5__["default"])((0,date_fns__WEBPACK_IMPORTED_MODULE_6__["default"])(data.date), 'yyyy-MM-dd hh:mm:ss');
+      } else if (data.fromOrTo === 2) {
+        this.dateTo = data.date;
+        this.formattedStringTo = (0,date_fns__WEBPACK_IMPORTED_MODULE_5__["default"])((0,date_fns__WEBPACK_IMPORTED_MODULE_6__["default"])(data.date), 'yyyy-MM-dd');
+        this.hasta = (0,date_fns__WEBPACK_IMPORTED_MODULE_5__["default"])((0,date_fns__WEBPACK_IMPORTED_MODULE_6__["default"])(data.date), 'yyyy-MM-dd hh:mm:ss');
+      }
+
+      this.getArchingByDate();
+    });
+    this.archingService.triggerReloadActuallyArching.subscribe(() => {
+      this.getArchingByDate();
+    });
+  }
+
+  setToday() {
+    this.dateFrom.setDate(this.dateFrom.getDate() - 60);
+    this.formattedStringFrom = (0,date_fns__WEBPACK_IMPORTED_MODULE_5__["default"])((0,date_fns__WEBPACK_IMPORTED_MODULE_6__["default"])((0,date_fns__WEBPACK_IMPORTED_MODULE_5__["default"])(this.dateFrom, 'yyyy-MM-dd')), 'yyyy-MM-dd');
+    this.formattedStringTo = (0,date_fns__WEBPACK_IMPORTED_MODULE_5__["default"])((0,date_fns__WEBPACK_IMPORTED_MODULE_6__["default"])((0,date_fns__WEBPACK_IMPORTED_MODULE_5__["default"])(this.dateTo, 'yyyy-MM-dd')), 'yyyy-MM-dd');
+    this.desde = (0,date_fns__WEBPACK_IMPORTED_MODULE_5__["default"])((0,date_fns__WEBPACK_IMPORTED_MODULE_6__["default"])((0,date_fns__WEBPACK_IMPORTED_MODULE_5__["default"])(this.dateFrom, 'yyyy-MM-dd')), 'yyyy-MM-dd hh:ss:mm');
+    this.hasta = (0,date_fns__WEBPACK_IMPORTED_MODULE_5__["default"])((0,date_fns__WEBPACK_IMPORTED_MODULE_6__["default"])((0,date_fns__WEBPACK_IMPORTED_MODULE_5__["default"])(this.dateTo, 'yyyy-MM-dd')), 'yyyy-MM-dd hh:ss:mm');
+  }
+
+  openCalendar(type) {
+    let date;
+
+    if (type === 1) {
+      date = this.formattedStringFrom;
+    } else if (type === 2) {
+      date = this.formattedStringTo;
+    }
+
+    this.archingService.triggerOpenCalendarModal.emit({
+      typ: type,
+      setDate: date
+    });
+  }
+
+  getAllArching() {
+    this.archingRequestService.getAllArching().subscribe(data => {
+      this.archingList = data;
+    });
+  }
+
+  getArchingByDate() {
+    var _this = this;
+
+    const dateRange = {
+      from: this.desde,
+      to: this.hasta
+    };
+    console.log(dateRange);
+    this.archingRequestService.getArchingByDate(dateRange).subscribe( /*#__PURE__*/function () {
+      var _ref = (0,C_Users_Admin_jeroalvarez1_MyProyects_ControlStock_ControlStock_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (data) {
+        _this.archingList = data;
+        const lista = [];
+        yield new Promise((resolve, reject) => {
+          _this.archingList.forEach( /*#__PURE__*/function () {
+            var _ref2 = (0,C_Users_Admin_jeroalvarez1_MyProyects_ControlStock_ControlStock_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (i) {
+              const file = yield _this.getTotalFileProductAmount(i.id);
+              const scann = yield _this.getTotalScannedProductAmount(i.id);
+              const valence1 = yield _this.getTotalValence(i.id);
+              console.log('El file es: ', file);
+              let end = '';
+
+              if (i.endDate === null) {
+                end = 'Sin finalizar';
+              } else {
+                end = i.endDate.substr(0, 10);
+              }
+
+              lista.push({
+                id: i.id,
+                referrer: i.referrer,
+                startDate: i.startDate.substr(0, 10),
+                endDate: end,
+                fileProductAmount: file,
+                scannedProductAmount: scann,
+                valence: valence1
+              });
+              resolve();
+            });
+
+            return function (_x2) {
+              return _ref2.apply(this, arguments);
+            };
+          }());
+
+          _this.archingList = lista;
+        });
+        console.log(data);
+      });
+
+      return function (_x) {
+        return _ref.apply(this, arguments);
+      };
+    }());
+  }
+
+  openArchingDetail(id) {
+    this.archingRequestService.getArchingById(id).subscribe(dat => {
+      this.archingService.triggerOpenArchingDetail.emit(dat);
+    });
+  }
+
+  getTotalFileProductAmount(id) {
+    var _this2 = this;
+
+    return (0,C_Users_Admin_jeroalvarez1_MyProyects_ControlStock_ControlStock_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return yield new Promise((resolve, reject) => {
+        _this2.archingRequestService.getTotalFileProductAmount(id).subscribe(data => resolve(data));
+      });
+    })();
+  }
+
+  getTotalScannedProductAmount(id) {
+    var _this3 = this;
+
+    return (0,C_Users_Admin_jeroalvarez1_MyProyects_ControlStock_ControlStock_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return yield new Promise((resolve, reject) => {
+        _this3.archingRequestService.getTotalScannedProductAmount(id).subscribe(data => resolve(data));
+      });
+    })();
+  }
+
+  getTotalValence(id) {
+    var _this4 = this;
+
+    return (0,C_Users_Admin_jeroalvarez1_MyProyects_ControlStock_ControlStock_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return yield new Promise((resolve, reject) => {
+        _this4.archingRequestService.getTotalValence(id).subscribe(data => resolve(data));
+      });
+    })();
+  }
+
+};
+
+HistoryArchingComponent.ctorParameters = () => [{
+  type: src_app_services_arching_service_arching_service__WEBPACK_IMPORTED_MODULE_4__.ArchingService
+}, {
+  type: src_app_controller_arching_arching_request_service__WEBPACK_IMPORTED_MODULE_3__.ArchingRequestService
+}];
+
+HistoryArchingComponent = (0,tslib__WEBPACK_IMPORTED_MODULE_7__.__decorate)([(0,_angular_core__WEBPACK_IMPORTED_MODULE_8__.Component)({
+  selector: 'app-history-arching',
+  template: _history_arching_component_html_ngResource__WEBPACK_IMPORTED_MODULE_1__,
+  styles: [_history_arching_component_scss_ngResource__WEBPACK_IMPORTED_MODULE_2__]
+})], HistoryArchingComponent);
 
 
 /***/ }),
@@ -1145,6 +1250,7 @@ let NewArchingComponent = class NewArchingComponent {
         this.archingRequestService.newArching(arching).subscribe((status) => {
             console.log(status);
             localStorage.setItem('arching-open', 'true');
+            this.archingService.triggerReloadActuallyArching.emit();
             this.setOpen();
         });
     }
@@ -1175,13 +1281,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "NewFileProductWithCodeComponent": () => (/* binding */ NewFileProductWithCodeComponent)
 /* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! tslib */ 4929);
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! tslib */ 4929);
 /* harmony import */ var _new_file_product_with_code_component_html_ngResource__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./new-file-product-with-code.component.html?ngResource */ 4716);
 /* harmony import */ var _new_file_product_with_code_component_scss_ngResource__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./new-file-product-with-code.component.scss?ngResource */ 7617);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/core */ 2560);
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/forms */ 2508);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/core */ 2560);
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/forms */ 2508);
 /* harmony import */ var src_app_controller_codes_codes_request_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/controller/codes/codes-request.service */ 4762);
 /* harmony import */ var src_app_controller_fileProduct_file_product_request_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/controller/fileProduct/file-product-request.service */ 9962);
+/* harmony import */ var src_app_services_file_product_service_file_product_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/file-product-service/file-product.service */ 5931);
+
 
 
 
@@ -1190,14 +1298,15 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let NewFileProductWithCodeComponent = class NewFileProductWithCodeComponent {
-    constructor(fileProductRequestService, codesRequestService) {
+    constructor(fileProductRequestService, codesRequestService, fileProductService) {
         this.fileProductRequestService = fileProductRequestService;
         this.codesRequestService = codesRequestService;
-        this.newFileProdcuctForm = new _angular_forms__WEBPACK_IMPORTED_MODULE_4__.FormGroup({
-            productName: new _angular_forms__WEBPACK_IMPORTED_MODULE_4__.FormControl('', _angular_forms__WEBPACK_IMPORTED_MODULE_4__.Validators.required),
-            mark: new _angular_forms__WEBPACK_IMPORTED_MODULE_4__.FormControl('', _angular_forms__WEBPACK_IMPORTED_MODULE_4__.Validators.required),
-            amount: new _angular_forms__WEBPACK_IMPORTED_MODULE_4__.FormControl('', _angular_forms__WEBPACK_IMPORTED_MODULE_4__.Validators.required),
-            barcode: new _angular_forms__WEBPACK_IMPORTED_MODULE_4__.FormControl('', _angular_forms__WEBPACK_IMPORTED_MODULE_4__.Validators.required)
+        this.fileProductService = fileProductService;
+        this.newFileProdcuctForm = new _angular_forms__WEBPACK_IMPORTED_MODULE_5__.FormGroup({
+            productName: new _angular_forms__WEBPACK_IMPORTED_MODULE_5__.FormControl('', _angular_forms__WEBPACK_IMPORTED_MODULE_5__.Validators.required),
+            mark: new _angular_forms__WEBPACK_IMPORTED_MODULE_5__.FormControl('', _angular_forms__WEBPACK_IMPORTED_MODULE_5__.Validators.required),
+            amount: new _angular_forms__WEBPACK_IMPORTED_MODULE_5__.FormControl('', _angular_forms__WEBPACK_IMPORTED_MODULE_5__.Validators.required),
+            barcode: new _angular_forms__WEBPACK_IMPORTED_MODULE_5__.FormControl('', _angular_forms__WEBPACK_IMPORTED_MODULE_5__.Validators.required)
         });
     }
     ngOnInit() { }
@@ -1208,23 +1317,29 @@ let NewFileProductWithCodeComponent = class NewFileProductWithCodeComponent {
             mark: form.mark,
             amount: form.amount
         };
-        const code = {
-            id: form.barcode
-        };
-        this.fileProductRequestService.newFileProduct(fileProduct).subscribe(data => {
-            this.codesRequestService.addCode(fileProduct.id, code).subscribe(dat => {
-                console.log(dat);
-            });
-            console.log(data);
+        this.fileProductRequestService.newFileProduct(fileProduct).subscribe((data) => {
+            if (form.barcode !== '') {
+                const code = {
+                    id: form.barcode
+                };
+                this.codesRequestService.addCode(data.id, code).subscribe(dat => {
+                    console.log(dat);
+                    this.fileProductService.triggerOpenList.emit();
+                });
+            }
+            else {
+                //change of page
+            }
         });
     }
 };
 NewFileProductWithCodeComponent.ctorParameters = () => [
     { type: src_app_controller_fileProduct_file_product_request_service__WEBPACK_IMPORTED_MODULE_3__.FileProductRequestService },
-    { type: src_app_controller_codes_codes_request_service__WEBPACK_IMPORTED_MODULE_2__.CodesRequestService }
+    { type: src_app_controller_codes_codes_request_service__WEBPACK_IMPORTED_MODULE_2__.CodesRequestService },
+    { type: src_app_services_file_product_service_file_product_service__WEBPACK_IMPORTED_MODULE_4__.FileProductService }
 ];
-NewFileProductWithCodeComponent = (0,tslib__WEBPACK_IMPORTED_MODULE_5__.__decorate)([
-    (0,_angular_core__WEBPACK_IMPORTED_MODULE_6__.Component)({
+NewFileProductWithCodeComponent = (0,tslib__WEBPACK_IMPORTED_MODULE_6__.__decorate)([
+    (0,_angular_core__WEBPACK_IMPORTED_MODULE_7__.Component)({
         selector: 'app-new-file-product-with-code',
         template: _new_file_product_with_code_component_html_ngResource__WEBPACK_IMPORTED_MODULE_0__,
         styles: [_new_file_product_with_code_component_scss_ngResource__WEBPACK_IMPORTED_MODULE_1__]
@@ -1308,13 +1423,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "ScannedProductListComponent": () => (/* binding */ ScannedProductListComponent)
 /* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! tslib */ 4929);
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! tslib */ 4929);
 /* harmony import */ var _scanned_product_list_component_html_ngResource__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./scanned-product-list.component.html?ngResource */ 7286);
 /* harmony import */ var _scanned_product_list_component_scss_ngResource__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./scanned-product-list.component.scss?ngResource */ 5464);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/core */ 2560);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/core */ 2560);
 /* harmony import */ var src_app_controller_scanner_scanner_request_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/controller/scanner/scanner-request.service */ 431);
 /* harmony import */ var src_app_services_scanner_service_scanner_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/services/scanner-service/scanner.service */ 9500);
 /* harmony import */ var _alerts_alerts_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../alerts/alerts.service */ 6194);
+/* harmony import */ var src_app_services_arching_service_arching_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/arching-service/arching.service */ 1285);
+
 
 
 
@@ -1323,18 +1440,21 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let ScannedProductListComponent = class ScannedProductListComponent {
-    constructor(scannerService, scannerRequestService, alertsService) {
+    constructor(scannerService, scannerRequestService, alertsService, archingService) {
         this.scannerService = scannerService;
         this.scannerRequestService = scannerRequestService;
         this.alertsService = alertsService;
+        this.archingService = archingService;
     }
     ngOnInit() {
         this.scannerRequestService.getAllScannedProduct().subscribe(data => {
             this.listProductsScanneds = data;
         });
-        this.scannerService.triggerUpdatedListScanned.subscribe(data => {
-            console.log('Scanned Updated', data);
-            this.listProductsScanneds = data;
+        this.scannerService.triggerUpdatedListScanned.subscribe(() => {
+            this.scannerRequestService.getAllScannedProduct().subscribe(requestData => {
+                this.listProductsScanneds = requestData;
+                this.archingService.triggerReloadActuallyArching.emit();
+            });
         });
     }
     deleteProduct(id) {
@@ -1347,10 +1467,11 @@ let ScannedProductListComponent = class ScannedProductListComponent {
 ScannedProductListComponent.ctorParameters = () => [
     { type: src_app_services_scanner_service_scanner_service__WEBPACK_IMPORTED_MODULE_3__.ScannerService },
     { type: src_app_controller_scanner_scanner_request_service__WEBPACK_IMPORTED_MODULE_2__.ScannerRequestService },
-    { type: _alerts_alerts_service__WEBPACK_IMPORTED_MODULE_4__.AlertsService }
+    { type: _alerts_alerts_service__WEBPACK_IMPORTED_MODULE_4__.AlertsService },
+    { type: src_app_services_arching_service_arching_service__WEBPACK_IMPORTED_MODULE_5__.ArchingService }
 ];
-ScannedProductListComponent = (0,tslib__WEBPACK_IMPORTED_MODULE_5__.__decorate)([
-    (0,_angular_core__WEBPACK_IMPORTED_MODULE_6__.Component)({
+ScannedProductListComponent = (0,tslib__WEBPACK_IMPORTED_MODULE_6__.__decorate)([
+    (0,_angular_core__WEBPACK_IMPORTED_MODULE_7__.Component)({
         selector: 'app-scanned-product-list',
         template: _scanned_product_list_component_html_ngResource__WEBPACK_IMPORTED_MODULE_0__,
         styles: [_scanned_product_list_component_scss_ngResource__WEBPACK_IMPORTED_MODULE_1__]
@@ -1711,6 +1832,7 @@ let ArchingService = class ArchingService {
         this.triggerOpenNewArchingModal = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.EventEmitter();
         this.triggerOpenArchingDetail = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.EventEmitter();
         this.triggerChangePage = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.EventEmitter();
+        this.triggerReloadActuallyArching = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.EventEmitter();
     }
 };
 ArchingService.ctorParameters = () => [];
@@ -1719,7 +1841,8 @@ ArchingService.propDecorators = {
     triggerChangeData: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.Output }],
     triggerOpenNewArchingModal: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.Output }],
     triggerOpenArchingDetail: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.Output }],
-    triggerChangePage: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.Output }]
+    triggerChangePage: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.Output }],
+    triggerReloadActuallyArching: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.Output }]
 };
 ArchingService = (0,tslib__WEBPACK_IMPORTED_MODULE_1__.__decorate)([
     (0,_angular_core__WEBPACK_IMPORTED_MODULE_0__.Injectable)({
@@ -1751,6 +1874,7 @@ let FileProductService = class FileProductService {
         this.triggerOpenAchiveModule = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.EventEmitter();
         this.triggerUpdatedFileList = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.EventEmitter();
         this.triggerFormatedList = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.EventEmitter();
+        this.triggerOpenList = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.EventEmitter();
     }
 };
 FileProductService.ctorParameters = () => [];
@@ -1758,7 +1882,8 @@ FileProductService.propDecorators = {
     triggerFileProductArray: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.Output }],
     triggerOpenAchiveModule: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.Output }],
     triggerUpdatedFileList: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.Output }],
-    triggerFormatedList: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.Output }]
+    triggerFormatedList: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.Output }],
+    triggerOpenList: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.Output }]
 };
 FileProductService = (0,tslib__WEBPACK_IMPORTED_MODULE_1__.__decorate)([
     (0,_angular_core__WEBPACK_IMPORTED_MODULE_0__.Injectable)({
@@ -5563,7 +5688,7 @@ module.exports = "<ion-modal [isOpen]=\"isModalOpen\">\n  <ng-template>\n    <io
   \******************************************************************************************/
 /***/ ((module) => {
 
-module.exports = "  <div class=\"main\">\n    <div>\n      <div>\n        <ion-item class=\"searchBar width100\" lines=\"none\">\n          <ion-label><ion-icon name=\"search-outline\"></ion-icon></ion-label>\n          <ion-input placeholder=\"Search\" [(ngModel)]=\"filterTerm\" animated=\"true\"></ion-input>\n        </ion-item>\n      </div>\n    </div>\n    <div class=\"table\">\n      <ion-content>\n        <ion-list *ngFor=\"let fileProduct of fileProductList | filter: filterTerm\">\n          <ion-item>\n            <ion-label>\n              <h2><b>Nombre:</b> {{fileProduct.productName}}</h2>\n              <p><b>Marca:</b> {{fileProduct.mark}}</p>\n              <p><b>Cantidad:</b> {{fileProduct.amount}}</p>\n            </ion-label>\n            <ion-button shape=\"round\" title=\"Borrar cliente\" color=\"danger\"\n              (click)=\"deleteProduct(fileProduct.id)\">\n              <ion-icon slot=\"icon-only\" name=\"trash-outline\"></ion-icon>\n            </ion-button>\n            <ion-button shape=\"round\" title=\"Editar cliente\" color=\"warning\" (click)=\"productUpdate(fileProduct)\">\n              <ion-icon slot=\"icon-only\" name=\"pencil-outline\"></ion-icon>\n            </ion-button>\n          </ion-item>\n        </ion-list>\n      </ion-content>\n    </div>\n  </div>\n";
+module.exports = "  <div class=\"main\">\n    <div>\n      <div>\n        <ion-item class=\"searchBar width100\" lines=\"none\">\n          <ion-label><ion-icon name=\"search-outline\"></ion-icon></ion-label>\n          <ion-input placeholder=\"Search\" [(ngModel)]=\"filterTerm\" animated=\"true\"></ion-input>\n        </ion-item>\n      </div>\n    </div>\n    <div class=\"table\">\n      <ion-content>\n        <ion-list *ngFor=\"let fileProduct of fileProductList | filter: filterTerm\">\n          <ion-item>\n            <ion-label>\n              <h2><b>Nombre:</b> {{fileProduct.productName}}</h2>\n              <p><b>Marca:</b> {{fileProduct.mark}}</p>\n              <p><b>Cantidad:</b> {{fileProduct.amount}}</p>\n            </ion-label>\n            <ion-button shape=\"round\" title=\"Borrar cliente\" color=\"danger\"\n              (click)=\"deleteProduct(fileProduct.id, fileProduct.scannedProduct.id)\">\n              <ion-icon slot=\"icon-only\" name=\"trash-outline\"></ion-icon>\n            </ion-button>\n            <ion-button shape=\"round\" title=\"Editar cliente\" color=\"warning\" (click)=\"productUpdate(fileProduct)\">\n              <ion-icon slot=\"icon-only\" name=\"pencil-outline\"></ion-icon>\n            </ion-button>\n          </ion-item>\n        </ion-list>\n      </ion-content>\n    </div>\n  </div>\n";
 
 /***/ }),
 
@@ -5573,7 +5698,7 @@ module.exports = "  <div class=\"main\">\n    <div>\n      <div>\n        <ion-i
   \**********************************************************************************************/
 /***/ ((module) => {
 
-module.exports = "<ion-modal [isOpen]=\"isModalOpen\">\n  <ng-template>\n    <ion-header>\n      <ion-toolbar color=\"main-color\">\n        <ion-title>Cargar producto por archivo</ion-title>\n        <ion-buttons slot=\"end\">\n          <ion-button (click)=\"setOpen()\">Close</ion-button>\n        </ion-buttons>\n      </ion-toolbar>\n    </ion-header>\n    <ion-content>\n      <form id=\"file-upload-form\" class=\"uploader\">\n        <input id=\"file-upload\" type=\"file\"\n        (change)=\"fileUpload($event)\"\n        name=\"fileUpload\" accept=\".xls,.xlsx\" />\n\n        <label for=\"file-upload\" id=\"file-drag\">\n          <div id=\"start\">\n            <i class=\"fa fa-download\" aria-hidden=\"true\"></i>\n            <div>Seleccione un archivo</div>\n            <span id=\"file-upload-btn\" class=\"btn btn-primary\">Archivo .xls o .xlsx</span>\n          </div>\n        </label>\n      </form>\n    </ion-content>\n  </ng-template>\n</ion-modal>\n";
+module.exports = "<ion-modal [isOpen]=\"isModalOpen\">\n  <ng-template>\n    <ion-header>\n      <ion-toolbar color=\"main-color\">\n        <ion-title>Cargar producto por archivo</ion-title>\n        <ion-buttons slot=\"end\">\n          <ion-button (click)=\"closse()\">Close</ion-button>\n        </ion-buttons>\n      </ion-toolbar>\n    </ion-header>\n    <ion-content>\n      <form id=\"file-upload-form\" class=\"uploader\">\n        <input id=\"file-upload\" type=\"file\"\n        (change)=\"fileUpload($event)\"\n        name=\"fileUpload\" accept=\".xls,.xlsx\" />\n\n        <label for=\"file-upload\" id=\"file-drag\">\n          <div id=\"start\">\n            <i class=\"fa fa-download\" aria-hidden=\"true\"></i>\n            <div>Seleccione un archivo</div>\n            <span id=\"file-upload-btn\" class=\"btn btn-primary\">Archivo .xls o .xlsx</span>\n          </div>\n        </label>\n      </form>\n    </ion-content>\n  </ng-template>\n</ion-modal>\n";
 
 /***/ }),
 
@@ -5583,7 +5708,7 @@ module.exports = "<ion-modal [isOpen]=\"isModalOpen\">\n  <ng-template>\n    <io
   \**************************************************************************************/
 /***/ ((module) => {
 
-module.exports = "<div class=\"height100\" *ngIf=\"page\">\n  <div class=\"main\">\n    <div class=\"searchBar\">\n      <ion-item ><!--class=\"searchBar width100\"-->\n        <ion-label>\n          <ion-icon name=\"search-outline\"></ion-icon>\n        </ion-label>\n        <ion-input placeholder=\"Search\" animated=\"true\"></ion-input>\n      </ion-item>\n      <ion-row class=\"searchBar\">\n        <ion-col size=\"6\" class=\"border-end\">\n          <ion-item button (click)=\"openCalendar(1)\" lines=\"none\">\n            <ion-icon icon=\"calendar-outline\" slot=\"start\" color=\"primary\"></ion-icon>\n            <ion-text><div class=\"primaryFont\">Desde: </div>{{formattedStringFrom}}</ion-text>\n          </ion-item>\n        </ion-col>\n        <ion-col size=\"6\">\n          <ion-item button (click)=\"openCalendar(2)\" lines=\"none\">\n            <ion-icon icon=\"calendar-outline\" slot=\"start\" color=\"primary\"></ion-icon>\n            <ion-text><div class=\"primaryFont\">Hasta: </div>{{formattedStringTo}}</ion-text>\n          </ion-item>\n        </ion-col>\n      </ion-row>\n    </div>\n    <app-calendar></app-calendar>\n    <div class=\"table\">\n      <ion-content>\n        <ion-list *ngFor=\"let arching of archingList\">\n          <ion-item button (click)=\"openArchingDetail(arching.id)\">\n            <ion-label>\n              <h1>{{arching.startDate}}</h1>\n              <p><b>Responsable:</b> {{arching.referrer}}</p>\n              <p><b>Fecha de inicio:</b> {{arching.startDate}}</p>\n              <p><b>Fecha de finalizacion:</b> {{arching.endDate}}</p>\n              <p><b>Catidad de FileProduct:</b> 200</p>\n              <p><b>Cantidad de ScannedProduct:</b> 195</p>\n              <ion-badge color=\"success\">Valance Faltan 5</ion-badge>\n            </ion-label>\n          </ion-item>\n        </ion-list>\n      </ion-content>\n    </div>\n  </div>\n</div>\n";
+module.exports = "<div class=\"height100\" *ngIf=\"page\">\n  <div class=\"main\">\n    <div class=\"searchBar\">\n      <ion-item ><!--class=\"searchBar width100\"-->\n        <ion-label>\n          <ion-icon name=\"search-outline\"></ion-icon>\n        </ion-label>\n        <ion-input placeholder=\"Search\" animated=\"true\"></ion-input>\n      </ion-item>\n      <ion-row class=\"searchBar\">\n        <ion-col size=\"6\" class=\"border-end\">\n          <ion-item button (click)=\"openCalendar(1)\" lines=\"none\">\n            <ion-icon icon=\"calendar-outline\" slot=\"start\" color=\"primary\"></ion-icon>\n            <ion-text><div class=\"primaryFont\">Desde: </div>{{formattedStringFrom}}</ion-text>\n          </ion-item>\n        </ion-col>\n        <ion-col size=\"6\">\n          <ion-item button (click)=\"openCalendar(2)\" lines=\"none\">\n            <ion-icon icon=\"calendar-outline\" slot=\"start\" color=\"primary\"></ion-icon>\n            <ion-text><div class=\"primaryFont\">Hasta: </div>{{formattedStringTo}}</ion-text>\n          </ion-item>\n        </ion-col>\n      </ion-row>\n    </div>\n    <app-calendar></app-calendar>\n    <div class=\"table\">\n      <ion-content>\n        <ion-list *ngFor=\"let arching of archingList\">\n          <ion-item button (click)=\"openArchingDetail(arching.id)\">\n            <ion-label>\n              <h1>{{arching.startDate}}</h1>\n              <p><b>Responsable:</b> {{arching.referrer}}</p>\n              <p><b>Fecha de inicio:</b> {{arching.startDate}}</p>\n              <p><b>Fecha de finalizacion:</b> {{arching.endDate}}</p>\n              <p><b>Catidad de FileProduct:</b> {{arching.fileProductAmount}}</p>\n              <p><b>Cantidad de ScannedProduct:</b> {{arching.scannedProductAmount}}</p>\n              <p><b>Valance:</b> {{arching.valence}}</p>\n            </ion-label>\n          </ion-item>\n        </ion-list>\n      </ion-content>\n    </div>\n  </div>\n</div>\n";
 
 /***/ }),
 

@@ -83,7 +83,8 @@ public class ScannedProductServiceImpl implements ScannedProductService {
 
     @Override
     public void deleteScannedProduct(Long id) {
-        scannedProductRepository.delete(getByIdScannedProductEntity(id));
+        ScannedProduct scannedProduct =  getByIdScannedProductEntity(id);
+        scannedProductRepository.delete(scannedProduct);
     }
 
 }
