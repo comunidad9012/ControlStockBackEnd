@@ -12,17 +12,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "ActuallyArchingComponent": () => (/* binding */ ActuallyArchingComponent)
 /* harmony export */ });
 /* harmony import */ var C_Users_Admin_jeroalvarez1_MyProyects_ControlStock_ControlStock_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 1670);
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! tslib */ 4929);
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! tslib */ 4929);
 /* harmony import */ var _actually_arching_component_html_ngResource__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./actually-arching.component.html?ngResource */ 2198);
 /* harmony import */ var _actually_arching_component_scss_ngResource__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./actually-arching.component.scss?ngResource */ 2118);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @angular/core */ 2560);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/core */ 2560);
 /* harmony import */ var src_app_services_arching_service_arching_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/services/arching-service/arching.service */ 1285);
 /* harmony import */ var src_app_controller_arching_arching_request_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/controller/arching/arching-request.service */ 5398);
-/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! date-fns */ 6712);
-/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! date-fns */ 6527);
+/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! date-fns */ 6712);
+/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! date-fns */ 6527);
 /* harmony import */ var src_app_controller_codes_codes_request_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/controller/codes/codes-request.service */ 4762);
 /* harmony import */ var src_app_controller_fileProduct_file_product_request_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/controller/fileProduct/file-product-request.service */ 9962);
 /* harmony import */ var src_app_controller_detail_arching_detail_arching_request_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/controller/detail-arching/detail-arching-request.service */ 9700);
+/* harmony import */ var src_app_services_file_product_service_file_product_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/services/file-product-service/file-product.service */ 5931);
+
 
 
 
@@ -35,12 +37,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let ActuallyArchingComponent = class ActuallyArchingComponent {
-  constructor(archingService, archingRequestService, codesRequestService, fileProductRequestService, detailArchingRequestService) {
+  constructor(archingService, archingRequestService, codesRequestService, fileProductRequestService, detailArchingRequestService, fileProductService) {
     this.archingService = archingService;
     this.archingRequestService = archingRequestService;
     this.codesRequestService = codesRequestService;
     this.fileProductRequestService = fileProductRequestService;
     this.detailArchingRequestService = detailArchingRequestService;
+    this.fileProductService = fileProductService;
     this.arching = {
       id: 0,
       referrer: '',
@@ -147,7 +150,7 @@ let ActuallyArchingComponent = class ActuallyArchingComponent {
 
     const actualyDate = new Date();
     const archingEndDate = {
-      endDate: (0,date_fns__WEBPACK_IMPORTED_MODULE_8__["default"])((0,date_fns__WEBPACK_IMPORTED_MODULE_9__["default"])((0,date_fns__WEBPACK_IMPORTED_MODULE_8__["default"])(actualyDate, 'yyyy-MM-dd')), 'yyyy-MM-dd hh:mm:ss')
+      endDate: (0,date_fns__WEBPACK_IMPORTED_MODULE_9__["default"])((0,date_fns__WEBPACK_IMPORTED_MODULE_10__["default"])((0,date_fns__WEBPACK_IMPORTED_MODULE_9__["default"])(actualyDate, 'yyyy-MM-dd')), 'yyyy-MM-dd hh:mm:ss')
     };
     this.archingRequestService.setEndDate(archingEndDate, this.arching.id).subscribe(data => {
       console.log(data);
@@ -158,6 +161,7 @@ let ActuallyArchingComponent = class ActuallyArchingComponent {
       console.log(data);
       this.fileProductRequestService.deleteAllFileProducts().subscribe(dat => {
         console.log(dat);
+        this.fileProductService.triggerUpdatedFileList.emit();
         this.codesRequestService.deleteAllCodes().subscribe( /*#__PURE__*/function () {
           var _ref4 = (0,C_Users_Admin_jeroalvarez1_MyProyects_ControlStock_ControlStock_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (da) {
             console.log(da);
@@ -237,9 +241,11 @@ ActuallyArchingComponent.ctorParameters = () => [{
   type: src_app_controller_fileProduct_file_product_request_service__WEBPACK_IMPORTED_MODULE_6__.FileProductRequestService
 }, {
   type: src_app_controller_detail_arching_detail_arching_request_service__WEBPACK_IMPORTED_MODULE_7__.DetailArchingRequestService
+}, {
+  type: src_app_services_file_product_service_file_product_service__WEBPACK_IMPORTED_MODULE_8__.FileProductService
 }];
 
-ActuallyArchingComponent = (0,tslib__WEBPACK_IMPORTED_MODULE_10__.__decorate)([(0,_angular_core__WEBPACK_IMPORTED_MODULE_11__.Component)({
+ActuallyArchingComponent = (0,tslib__WEBPACK_IMPORTED_MODULE_11__.__decorate)([(0,_angular_core__WEBPACK_IMPORTED_MODULE_12__.Component)({
   selector: 'app-actually-arching',
   template: _actually_arching_component_html_ngResource__WEBPACK_IMPORTED_MODULE_1__,
   styles: [_actually_arching_component_scss_ngResource__WEBPACK_IMPORTED_MODULE_2__]
@@ -336,7 +342,7 @@ let AlertsService = class AlertsService {
     })();
   }
 
-  deleteFileProduct(id, scannedProductId) {
+  deleteFileProduct(id, fileProduct) {
     var _this3 = this;
 
     return (0,C_Users_Admin_jeroalvarez1_MyProyects_ControlStock_ControlStock_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
@@ -350,15 +356,31 @@ let AlertsService = class AlertsService {
         }, {
           text: 'Eliminar',
           handler: () => {
-            _this3.fileProductRequestService.deletelFileProduct(id).subscribe(data => {
-              console.log('Eliminado', data);
+            if (!fileProduct.scannedProduct) {
+              console.log('Borrado sin scanned');
 
-              _this3.detailArchingRequestService.deleteDetailArching(scannedProductId).subscribe(() => {
+              _this3.fileProductRequestService.deletelFileProduct(id).subscribe(data => {
+                console.log('Eliminado', data);
+
                 _this3.fileProductService.triggerUpdatedFileList.emit();
 
                 _this3.scannerService.triggerUpdatedListScanned.emit();
               });
-            });
+            } else {
+              console.log('Borrado con scanned');
+
+              _this3.fileProductRequestService.deletelFileAndScannedProduct(id).subscribe(date => {
+                console.log(date);
+
+                _this3.detailArchingRequestService.deleteDetailArching(fileProduct.scannedProduct.id).subscribe(() => {
+                  _this3.fileProductService.triggerUpdatedFileList.emit();
+
+                  _this3.scannerService.triggerUpdatedListScanned.emit();
+                });
+              });
+            }
+
+            ;
           }
         }]
       });
@@ -873,8 +895,8 @@ let FileProductListComponent = class FileProductListComponent {
             this.fileProductList = data;
         });
     }
-    deleteProduct(id, scannedProductId) {
-        this.alertsService.deleteFileProduct(id, scannedProductId);
+    deleteProduct(id, fileProduct) {
+        this.alertsService.deleteFileProduct(id, fileProduct);
         console.log('El id es: ', id);
     }
     productUpdate(fileProduct) {
@@ -1089,10 +1111,10 @@ let HistoryArchingComponent = class HistoryArchingComponent {
       from: this.desde,
       to: this.hasta
     };
-    console.log(dateRange);
     this.archingRequestService.getArchingByDate(dateRange).subscribe( /*#__PURE__*/function () {
       var _ref = (0,C_Users_Admin_jeroalvarez1_MyProyects_ControlStock_ControlStock_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (data) {
         _this.archingList = data;
+        console.log('Lista1', _this.archingList);
         const lista = [];
         yield new Promise((resolve, reject) => {
           _this.archingList.forEach( /*#__PURE__*/function () {
@@ -1100,7 +1122,6 @@ let HistoryArchingComponent = class HistoryArchingComponent {
               const file = yield _this.getTotalFileProductAmount(i.id);
               const scann = yield _this.getTotalScannedProductAmount(i.id);
               const valence1 = yield _this.getTotalValence(i.id);
-              console.log('El file es: ', file);
               let end = '';
 
               if (i.endDate === null) {
@@ -1126,9 +1147,10 @@ let HistoryArchingComponent = class HistoryArchingComponent {
             };
           }());
 
+          console.log('La lista es: ', lista);
           _this.archingList = lista;
+          console.log('Lista2', _this.archingList);
         });
-        console.log(data);
       });
 
       return function (_x) {
@@ -1306,7 +1328,7 @@ let NewFileProductWithCodeComponent = class NewFileProductWithCodeComponent {
             productName: new _angular_forms__WEBPACK_IMPORTED_MODULE_5__.FormControl('', _angular_forms__WEBPACK_IMPORTED_MODULE_5__.Validators.required),
             mark: new _angular_forms__WEBPACK_IMPORTED_MODULE_5__.FormControl('', _angular_forms__WEBPACK_IMPORTED_MODULE_5__.Validators.required),
             amount: new _angular_forms__WEBPACK_IMPORTED_MODULE_5__.FormControl('', _angular_forms__WEBPACK_IMPORTED_MODULE_5__.Validators.required),
-            barcode: new _angular_forms__WEBPACK_IMPORTED_MODULE_5__.FormControl('', _angular_forms__WEBPACK_IMPORTED_MODULE_5__.Validators.required)
+            barcode: new _angular_forms__WEBPACK_IMPORTED_MODULE_5__.FormControl('')
         });
     }
     ngOnInit() { }
@@ -1328,7 +1350,7 @@ let NewFileProductWithCodeComponent = class NewFileProductWithCodeComponent {
                 });
             }
             else {
-                //change of page
+                this.fileProductService.triggerOpenList.emit();
             }
         });
     }
@@ -1741,6 +1763,9 @@ let FileProductRequestService = class FileProductRequestService {
     }
     deletelFileProduct(id) {
         return this.httpClient.delete(this.baseURL + '/file-products/' + id);
+    }
+    deletelFileAndScannedProduct(id) {
+        return this.httpClient.delete(this.baseURL + '/file-products/and-scanned/' + id);
     }
     deleteAllFileProducts() {
         return this.httpClient.delete(this.baseURL + '/file-products');
@@ -5678,7 +5703,7 @@ module.exports = "<ion-modal [isOpen]=\"isModalOpen\">\n  <ng-template>\n    <io
   \**********************************************************************************************************/
 /***/ ((module) => {
 
-module.exports = "<ion-modal [isOpen]=\"isModalOpen\">\n  <ng-template>\n    <ion-header>\n      <ion-toolbar color=\"main-color\">\n        <ion-buttons slot=\"secondary\">\n          <ion-button (click)=\"newFileProduct(true)\">\n            <ion-icon slot=\"icon-only\" name=\"add-circle-outline\"></ion-icon>\n          </ion-button>\n          <ion-button *ngIf=\"chekingBy\" (click)=\"searchBy()\">\n            <ion-icon slot=\"icon-only\" name=\"repeat\"></ion-icon>\n          </ion-button>\n          <ion-button (click)=\"setOpen()\">\n            <ion-icon slot=\"icon-only\" name=\"close\"></ion-icon>\n          </ion-button>\n        </ion-buttons>\n        <ng-container *ngIf=\"searchby; then cod; else name\"></ng-container>\n        <ng-template #cod>\n          <ion-title>Buscar por COD</ion-title>\n        </ng-template>\n        <ng-template #name>\n          <ion-title>Buscar por NOMBRE</ion-title>\n        </ng-template>\n      </ion-toolbar>\n      <ion-toolbar *ngIf=\"!searchby\" color=\"main-color\">\n        <ion-searchbar placeholder=\"Search\" [(ngModel)]=\"filterTerm\" animated=\"true\"></ion-searchbar>\n      </ion-toolbar>\n    </ion-header>\n\n    <ion-content *ngIf=\"searchby && !varNewFileProduct\">\n      <div *ngIf=\"fileProducts\">\n      <ion-list *ngFor=\"let fileProduct of fileProducts\">\n          <ion-item button (click)=\"selectItem(fileProduct.id)\">\n            <ion-label>\n              <h2><b>Nombre:</b> {{fileProduct.productName}}</h2>\n              <p><b>Marca:</b> {{fileProduct.mark}}</p>\n              <p><b>Cantidad:</b> {{fileProduct.amount}}</p>\n            </ion-label>\n            <ion-badge color=\"success\" *ngIf=\"fileProduct.scannedProduct\">Escanneado</ion-badge>\n            <ion-badge color=\"danger\" *ngIf=\"!fileProduct.scannedProduct\">No Escanneado</ion-badge>\n          </ion-item>\n      </ion-list>\n    </div>\n    <div *ngIf=\"!fileProducts\">\n      <ion-item>\n        <ion-label>\n          No hay productos que coincidan con el codigo\n        </ion-label>\n        <ion-icon name=\"information-circle\" slot=\"end\"></ion-icon>\n      </ion-item>\n    </div>\n    </ion-content>\n\n    <ion-content *ngIf=\"!searchby && !varNewFileProduct\">\n      <ion-list *ngFor=\"let allFileProduct of allFileProducts | filter: filterTerm\">\n        <ion-item button (click)=\"selectItem(allFileProduct.id)\">\n          <ion-label>\n            <h2><b>Nombre:</b> {{allFileProduct.productName}}</h2>\n            <p><b>Marca:</b> {{allFileProduct.mark}}</p>\n            <p><b>Cantidad:</b> {{allFileProduct.amount}}</p>\n          </ion-label>\n          <ion-badge color=\"success\" *ngIf=\"allFileProduct.scannedProduct\">Escanneado</ion-badge>\n          <ion-badge color=\"danger\" *ngIf=\"!allFileProduct.scannedProduct\">No Escanneado</ion-badge>\n        </ion-item>\n      </ion-list>\n    </ion-content>\n\n    <ion-content *ngIf=\"varNewFileProduct\">\n      <app-new-file-product></app-new-file-product>\n    </ion-content>\n\n  </ng-template>\n</ion-modal>\n";
+module.exports = "<ion-modal [isOpen]=\"isModalOpen\">\n  <ng-template>\n    <ion-header>\n      <ion-toolbar color=\"main-color\">\n        <ion-buttons slot=\"secondary\">\n          <ion-button (click)=\"newFileProduct(true)\">\n            <ion-icon slot=\"icon-only\" name=\"add-circle-outline\"></ion-icon>\n          </ion-button>\n          <ion-button *ngIf=\"chekingBy\" (click)=\"searchBy()\">\n            <ion-icon slot=\"icon-only\" name=\"repeat\"></ion-icon>\n          </ion-button>\n          <ion-button (click)=\"setOpen()\">\n            <ion-icon slot=\"icon-only\" name=\"close\"></ion-icon>\n          </ion-button>\n        </ion-buttons>\n        <ng-container *ngIf=\"searchby; then cod; else name\"></ng-container>\n        <ng-template #cod>\n          <ion-title>Buscar por COD</ion-title>\n        </ng-template>\n        <ng-template #name>\n          <ion-title>Buscar por NOMBRE</ion-title>\n        </ng-template>\n      </ion-toolbar>\n      <ion-toolbar *ngIf=\"!searchby && !varNewFileProduct\" color=\"main-color\">\n        <ion-searchbar placeholder=\"Search\" [(ngModel)]=\"filterTerm\" animated=\"true\"></ion-searchbar>\n      </ion-toolbar>\n    </ion-header>\n\n    <ion-content *ngIf=\"searchby && !varNewFileProduct\">\n      <div *ngIf=\"fileProducts\">\n      <ion-list *ngFor=\"let fileProduct of fileProducts\">\n          <ion-item button (click)=\"selectItem(fileProduct.id)\">\n            <ion-label>\n              <h2><b>Nombre:</b> {{fileProduct.productName}}</h2>\n              <p><b>Marca:</b> {{fileProduct.mark}}</p>\n              <p><b>Cantidad:</b> {{fileProduct.amount}}</p>\n            </ion-label>\n            <ion-badge color=\"success\" *ngIf=\"fileProduct.scannedProduct\">Escanneado</ion-badge>\n            <ion-badge color=\"danger\" *ngIf=\"!fileProduct.scannedProduct\">No Escanneado</ion-badge>\n          </ion-item>\n      </ion-list>\n    </div>\n    <div *ngIf=\"!fileProducts\">\n      <ion-item>\n        <ion-label>\n          No hay productos que coincidan con el codigo\n        </ion-label>\n        <ion-icon name=\"information-circle\" slot=\"end\"></ion-icon>\n      </ion-item>\n    </div>\n    </ion-content>\n\n    <ion-content *ngIf=\"!searchby && !varNewFileProduct\">\n      <ion-list *ngFor=\"let allFileProduct of allFileProducts | filter: filterTerm\">\n        <ion-item button (click)=\"selectItem(allFileProduct.id)\">\n          <ion-label>\n            <h2><b>Nombre:</b> {{allFileProduct.productName}}</h2>\n            <p><b>Marca:</b> {{allFileProduct.mark}}</p>\n            <p><b>Cantidad:</b> {{allFileProduct.amount}}</p>\n          </ion-label>\n          <ion-badge color=\"success\" *ngIf=\"allFileProduct.scannedProduct\">Escanneado</ion-badge>\n          <ion-badge color=\"danger\" *ngIf=\"!allFileProduct.scannedProduct\">No Escanneado</ion-badge>\n        </ion-item>\n      </ion-list>\n    </ion-content>\n\n    <ion-content *ngIf=\"varNewFileProduct\">\n      <app-new-file-product></app-new-file-product>\n    </ion-content>\n\n  </ng-template>\n</ion-modal>\n";
 
 /***/ }),
 
@@ -5688,7 +5713,7 @@ module.exports = "<ion-modal [isOpen]=\"isModalOpen\">\n  <ng-template>\n    <io
   \******************************************************************************************/
 /***/ ((module) => {
 
-module.exports = "  <div class=\"main\">\n    <div>\n      <div>\n        <ion-item class=\"searchBar width100\" lines=\"none\">\n          <ion-label><ion-icon name=\"search-outline\"></ion-icon></ion-label>\n          <ion-input placeholder=\"Search\" [(ngModel)]=\"filterTerm\" animated=\"true\"></ion-input>\n        </ion-item>\n      </div>\n    </div>\n    <div class=\"table\">\n      <ion-content>\n        <ion-list *ngFor=\"let fileProduct of fileProductList | filter: filterTerm\">\n          <ion-item>\n            <ion-label>\n              <h2><b>Nombre:</b> {{fileProduct.productName}}</h2>\n              <p><b>Marca:</b> {{fileProduct.mark}}</p>\n              <p><b>Cantidad:</b> {{fileProduct.amount}}</p>\n            </ion-label>\n            <ion-button shape=\"round\" title=\"Borrar cliente\" color=\"danger\"\n              (click)=\"deleteProduct(fileProduct.id, fileProduct.scannedProduct.id)\">\n              <ion-icon slot=\"icon-only\" name=\"trash-outline\"></ion-icon>\n            </ion-button>\n            <ion-button shape=\"round\" title=\"Editar cliente\" color=\"warning\" (click)=\"productUpdate(fileProduct)\">\n              <ion-icon slot=\"icon-only\" name=\"pencil-outline\"></ion-icon>\n            </ion-button>\n          </ion-item>\n        </ion-list>\n      </ion-content>\n    </div>\n  </div>\n";
+module.exports = "  <div class=\"main\">\n    <div>\n      <div>\n        <ion-item class=\"searchBar width100\" lines=\"none\">\n          <ion-label><ion-icon name=\"search-outline\"></ion-icon></ion-label>\n          <ion-input placeholder=\"Search\" [(ngModel)]=\"filterTerm\" animated=\"true\"></ion-input>\n        </ion-item>\n      </div>\n    </div>\n    <div class=\"table\">\n      <ion-content>\n        <ion-list *ngFor=\"let fileProduct of fileProductList | filter: filterTerm\">\n          <ion-item>\n            <ion-label>\n              <h2><b>Nombre:</b> {{fileProduct.productName}}</h2>\n              <p><b>Marca:</b> {{fileProduct.mark}}</p>\n              <p><b>Cantidad:</b> {{fileProduct.amount}}</p>\n            </ion-label>\n            <ion-button shape=\"round\" title=\"Borrar cliente\" color=\"danger\"\n              (click)=\"deleteProduct(fileProduct.id, fileProduct)\">\n              <ion-icon slot=\"icon-only\" name=\"trash-outline\"></ion-icon>\n            </ion-button>\n            <ion-button shape=\"round\" title=\"Editar cliente\" color=\"warning\" (click)=\"productUpdate(fileProduct)\">\n              <ion-icon slot=\"icon-only\" name=\"pencil-outline\"></ion-icon>\n            </ion-button>\n          </ion-item>\n        </ion-list>\n      </ion-content>\n    </div>\n  </div>\n";
 
 /***/ }),
 
@@ -5728,7 +5753,7 @@ module.exports = "<ion-modal [isOpen]=\"isModalOpen\">\n  <ng-template>\n    <io
   \************************************************************************************************************/
 /***/ ((module) => {
 
-module.exports = "<ion-card>\n  <ion-card-header>\n    <ion-card-title>Nuevo FileProduct</ion-card-title>\n  </ion-card-header>\n  <ion-card-content>\n    <form [formGroup]=\"newFileProdcuctForm\">\n      <ion-row>\n        <ion-col size=\"12\">\n          <ion-item fill=\"outline\" >\n            <ion-label position=\"floating\">Nombre</ion-label>\n            <ion-input formControlName=\"productName\" type=\"text\"></ion-input>\n          </ion-item>\n        </ion-col>\n        <ion-col size=\"12\">\n          <ion-item fill=\"outline\" >\n            <ion-label position=\"floating\">Marca</ion-label>\n            <ion-input formControlName=\"mark\" type=\"text\"></ion-input>\n          </ion-item>\n        </ion-col>\n        <ion-col size=\"12\">\n          <ion-item fill=\"outline\" >\n            <ion-label position=\"floating\">Cantidad</ion-label>\n            <ion-input formControlName=\"amount\" type=\"number\"></ion-input>\n          </ion-item>\n        </ion-col>\n        <ion-col size=\"12\">\n          <ion-item fill=\"outline\" >\n            <ion-label position=\"floating\">Codigo de barra</ion-label>\n            <ion-input formControlName=\"barcode\" type=\"text\"></ion-input>\n          </ion-item>\n        </ion-col>\n        <ion-col size=\"12\">\n          <ion-button expand=\"block\" color=\"main-color\" (click)=\"saveFileProduct()\">\n            <ion-icon slot=\"start\" name=\"add-circle\"></ion-icon>\n            Agregar\n          </ion-button>\n        </ion-col>\n      </ion-row>\n    </form>\n  </ion-card-content>\n</ion-card>\n";
+module.exports = "<ion-card>\n  <ion-card-header>\n    <ion-card-title>Nuevo FileProduct</ion-card-title>\n  </ion-card-header>\n  <ion-card-content>\n    <form [formGroup]=\"newFileProdcuctForm\">\n      <ion-row>\n        <ion-col size=\"12\">\n          <ion-item fill=\"outline\" >\n            <ion-label position=\"floating\">Nombre</ion-label>\n            <ion-input formControlName=\"productName\" type=\"text\"></ion-input>\n          </ion-item>\n        </ion-col>\n        <ion-col size=\"12\">\n          <ion-item fill=\"outline\" >\n            <ion-label position=\"floating\">Marca</ion-label>\n            <ion-input formControlName=\"mark\" type=\"text\"></ion-input>\n          </ion-item>\n        </ion-col>\n        <ion-col size=\"12\">\n          <ion-item fill=\"outline\" >\n            <ion-label position=\"floating\">Cantidad</ion-label>\n            <ion-input formControlName=\"amount\" type=\"number\"></ion-input>\n          </ion-item>\n        </ion-col>\n        <ion-col size=\"12\">\n          <ion-item fill=\"outline\" >\n            <ion-label position=\"floating\">Codigo de barra</ion-label>\n            <ion-input formControlName=\"barcode\" type=\"text\"></ion-input>\n          </ion-item>\n        </ion-col>\n        <ion-col size=\"12\">\n          <ion-button expand=\"block\" color=\"main-color\" (click)=\"saveFileProduct()\" [disabled]=\"newFileProdcuctForm.invalid\">\n            <ion-icon slot=\"start\" name=\"add-circle\"></ion-icon>\n            Agregar\n          </ion-button>\n        </ion-col>\n      </ion-row>\n    </form>\n  </ion-card-content>\n</ion-card>\n";
 
 /***/ }),
 
@@ -5738,7 +5763,7 @@ module.exports = "<ion-card>\n  <ion-card-header>\n    <ion-card-title>Nuevo Fil
   \****************************************************************************************/
 /***/ ((module) => {
 
-module.exports = "<ion-card>\n  <ion-card-header>\n    <ion-card-title>Nuevo FileProduct</ion-card-title>\n  </ion-card-header>\n  <ion-card-content>\n    <form [formGroup]=\"newFileProdcuctForm\">\n      <ion-row>\n        <ion-col size=\"12\">\n          <ion-item fill=\"outline\" >\n            <ion-label position=\"floating\">Nombre</ion-label>\n            <ion-input formControlName=\"productName\" type=\"text\"></ion-input>\n          </ion-item>\n        </ion-col>\n        <ion-col size=\"12\">\n          <ion-item fill=\"outline\" >\n            <ion-label position=\"floating\">Marca</ion-label>\n            <ion-input formControlName=\"mark\" type=\"text\"></ion-input>\n          </ion-item>\n        </ion-col>\n        <ion-col size=\"12\">\n          <ion-item fill=\"outline\" >\n            <ion-label position=\"floating\">Cantidad</ion-label>\n            <ion-input formControlName=\"amount\" type=\"number\"></ion-input>\n          </ion-item>\n        </ion-col>\n        <ion-col size=\"12\">\n          <ion-button expand=\"block\" color=\"main-color\" (click)=\"saveFileProduct()\">\n            <ion-icon slot=\"start\" name=\"add-circle\"></ion-icon>\n            Agregar\n          </ion-button>\n        </ion-col>\n      </ion-row>\n    </form>\n  </ion-card-content>\n</ion-card>";
+module.exports = "<ion-card>\n  <ion-card-header>\n    <ion-card-title>Nuevo FileProduct</ion-card-title>\n  </ion-card-header>\n  <ion-card-content>\n    <form [formGroup]=\"newFileProdcuctForm\">\n      <ion-row>\n        <ion-col size=\"12\">\n          <ion-item fill=\"outline\" >\n            <ion-label position=\"floating\">Nombre</ion-label>\n            <ion-input formControlName=\"productName\" type=\"text\"></ion-input>\n          </ion-item>\n        </ion-col>\n        <ion-col size=\"12\">\n          <ion-item fill=\"outline\" >\n            <ion-label position=\"floating\">Marca</ion-label>\n            <ion-input formControlName=\"mark\" type=\"text\"></ion-input>\n          </ion-item>\n        </ion-col>\n        <ion-col size=\"12\">\n          <ion-item fill=\"outline\" >\n            <ion-label position=\"floating\">Cantidad</ion-label>\n            <ion-input formControlName=\"amount\" type=\"number\"></ion-input>\n          </ion-item>\n        </ion-col>\n        <ion-col size=\"12\">\n          <ion-button expand=\"block\" color=\"main-color\" (click)=\"saveFileProduct()\" [disabled]=\"newFileProdcuctForm.invalid\">\n            <ion-icon slot=\"start\" name=\"add-circle\"></ion-icon>\n            Agregar\n          </ion-button>\n        </ion-col>\n      </ion-row>\n    </form>\n  </ion-card-content>\n</ion-card>\n";
 
 /***/ }),
 

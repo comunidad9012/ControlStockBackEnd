@@ -31,6 +31,8 @@ public interface FileProductService {
 
     public void deleteFileProduct(Long id);
 
+    public void deleteFileAndScannedProduct(Long id);
+
     public void deleteAllFileProducts();
 
 }

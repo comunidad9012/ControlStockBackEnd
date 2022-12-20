@@ -60,6 +60,12 @@ public class FileProductController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    @DeleteMapping("/and-scanned/{id}")
+    public ResponseEntity<HttpStatus> deleteFileAndScannedProduct(@PathVariable(value = "id") Long id) {
+        fileProductService.deleteFileAndScannedProduct(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
     @DeleteMapping
     public ResponseEntity<HttpStatus> deleteAllFileProducts() {
         fileProductService.deleteAllFileProducts();

@@ -105,11 +105,15 @@ public class CodesServiceImpl implements CodesService {
     @Override
     public void deleteAllCodesFromFileProduct() {
         List<FileProduct> fileProductList = fileProductRepository.findAll();
+        int cont = 0;
         for (FileProduct fileProduct: fileProductList) {
-            for (Codes code :fileProduct.getCodes()) {
-                fileProduct.removeCode(code.getId());
+            FileProduct fileProductNew = fileProductRepository.findById(fileProduct.getId())
+                    .orElseThrow(() -> new ResourceNoteFoundException("FileProduct", "id", fileProduct.getId()));
+            List<CodesDto> codes = getAllCodesByFileProductId(fileProduct.getId());
+            for (CodesDto code: codes) {
+                fileProductNew.removeCode(code.getId());
+                fileProductRepository.save(fileProductNew);
             }
-            fileProductRepository.save(fileProduct);
         }
     }
 

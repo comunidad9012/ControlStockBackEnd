@@ -4,6 +4,7 @@ import app.cstock.ControlStockBackend.dto.FileProductDto;
 import app.cstock.ControlStockBackend.dto.FileProductWithCodeDto;
 import app.cstock.ControlStockBackend.entity.Codes;
 import app.cstock.ControlStockBackend.entity.FileProduct;
+import app.cstock.ControlStockBackend.entity.ScannedProduct;
 import app.cstock.ControlStockBackend.exeption.ResourceNoteFoundException;
 import app.cstock.ControlStockBackend.repository.FileProductRepository;
 import app.cstock.ControlStockBackend.repository.ScannedProductRepository;
@@ -107,6 +108,12 @@ public class FileProductServiceImpl implements FileProductService {
 
     @Override
     public void deleteFileProduct(Long id) {
+        FileProduct fileProduct = getByIdFileProductEntity(id);
+        fileProductRepository.delete(getByIdFileProductEntity(id));
+        System.out.println(fileProduct.getScannedProduct());
+    }
+
+    public void deleteFileAndScannedProduct(Long id) {
         FileProduct fileProduct = getByIdFileProductEntity(id);
         scaneedProductRepository.deleteById(fileProduct.getScannedProduct().getId());
         fileProductRepository.delete(getByIdFileProductEntity(id));
