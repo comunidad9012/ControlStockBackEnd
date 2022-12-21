@@ -388,11 +388,50 @@ let AlertsService = class AlertsService {
     })();
   }
 
-  productUpdate(scannedProduct) {
+  fileProductUpdate(fileProduct) {
     var _this4 = this;
 
     return (0,C_Users_Admin_jeroalvarez1_MyProyects_ControlStock_ControlStock_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       const alert = yield _this4.alertController.create({
+        header: 'Actualizar cantidad',
+        inputs: [{
+          placeholder: 'Cantidad',
+          name: 'amount',
+          type: 'number'
+        }],
+        buttons: [{
+          text: 'Cancelar',
+          role: 'cancel'
+        }, {
+          text: 'Actualizar',
+          handler: alertData => {
+            fileProduct.amount = alertData.amount;
+
+            _this4.fileProductRequestService.updateFileProduct(fileProduct.id, fileProduct).subscribe(data => {
+              console.log(data);
+              const detailArching = {
+                id: data.scannedProduct.id,
+                fileProductAmount: data.amount
+              };
+
+              _this4.detailArchingRequestService.updateFileAmountDetailArching(detailArching).subscribe(() => {
+                _this4.scannerService.triggerUpdatedListScanned.emit();
+
+                _this4.fileProductService.triggerUpdatedFileList.emit();
+              });
+            });
+          }
+        }]
+      });
+      yield alert.present();
+    })();
+  }
+
+  productUpdate(scannedProduct) {
+    var _this5 = this;
+
+    return (0,C_Users_Admin_jeroalvarez1_MyProyects_ControlStock_ControlStock_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      const alert = yield _this5.alertController.create({
         header: 'Actualizar cantidad',
         inputs: [{
           placeholder: 'Cantidad',
@@ -411,14 +450,14 @@ let AlertsService = class AlertsService {
               fileProduct: scannedProduct.fileProduct
             };
 
-            _this4.scannerRequestService.updateScannedProduct(scannedProduct.id, productUpdated).subscribe(data => {
+            _this5.scannerRequestService.updateScannedProduct(scannedProduct.id, productUpdated).subscribe(data => {
               const detailArching = {
                 id: data.id,
                 scannedProductAmount: data.amount
               };
 
-              _this4.detailArchingRequestService.updateDetailArching(detailArching).subscribe(() => {
-                _this4.scannerService.triggerUpdatedListScanned.emit();
+              _this5.detailArchingRequestService.updateDetailArching(detailArching).subscribe(() => {
+                _this5.scannerService.triggerUpdatedListScanned.emit();
               });
             });
           }
@@ -429,10 +468,10 @@ let AlertsService = class AlertsService {
   }
 
   linkedProduct() {
-    var _this5 = this;
+    var _this6 = this;
 
     return (0,C_Users_Admin_jeroalvarez1_MyProyects_ControlStock_ControlStock_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
-      const alert = yield _this5.alertController.create({
+      const alert = yield _this6.alertController.create({
         header: 'Este producto ya esta vinculado con otro',
         buttons: [{
           text: 'Cancelar',
@@ -451,10 +490,10 @@ let AlertsService = class AlertsService {
   }
 
   whitOutCod() {
-    var _this6 = this;
+    var _this7 = this;
 
     return (0,C_Users_Admin_jeroalvarez1_MyProyects_ControlStock_ControlStock_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
-      const alert = yield _this6.alertController.create({
+      const alert = yield _this7.alertController.create({
         header: 'Debe ingresar un codigo',
         subHeader: 'Puede ingresar el codigo manualmente',
         inputs: [{
@@ -467,7 +506,7 @@ let AlertsService = class AlertsService {
         }, {
           text: 'Aceptar',
           handler: alertData => {
-            _this6.scannerService.triggerSendCod.emit(alertData.cod);
+            _this7.scannerService.triggerSendCod.emit(alertData.cod);
           }
         }]
       });
@@ -476,10 +515,10 @@ let AlertsService = class AlertsService {
   }
 
   endLasOneArching() {
-    var _this7 = this;
+    var _this8 = this;
 
     return (0,C_Users_Admin_jeroalvarez1_MyProyects_ControlStock_ControlStock_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
-      const alert = yield _this7.alertController.create({
+      const alert = yield _this8.alertController.create({
         header: 'Arqueo no terminado',
         subHeader: 'Debe terminar el arqueo actual antes de comenzar otro',
         buttons: [{
@@ -900,7 +939,7 @@ let FileProductListComponent = class FileProductListComponent {
         console.log('El id es: ', id);
     }
     productUpdate(fileProduct) {
-        console.log('El file product a editar es:', fileProduct);
+        this.alertsService.fileProductUpdate(fileProduct);
     }
 };
 FileProductListComponent.ctorParameters = () => [
@@ -1706,6 +1745,9 @@ let DetailArchingRequestService = class DetailArchingRequestService {
     updateDetailArching(detailArching) {
         return this.httpClient.put(this.baseURL + '/detail-arching', detailArching);
     }
+    updateFileAmountDetailArching(detailArching) {
+        return this.httpClient.put(this.baseURL + '/detail-arching-file', detailArching);
+    }
     getAllDetailArching(archingId) {
         return this.httpClient.get(this.baseURL + '/detail-arching/all/' + archingId);
     }
@@ -1769,6 +1811,9 @@ let FileProductRequestService = class FileProductRequestService {
     }
     deleteAllFileProducts() {
         return this.httpClient.delete(this.baseURL + '/file-products');
+    }
+    updateFileProduct(fileProductId, fileProduct) {
+        return this.httpClient.put(this.baseURL + '/file-products/' + fileProductId, fileProduct);
     }
 };
 FileProductRequestService.ctorParameters = () => [

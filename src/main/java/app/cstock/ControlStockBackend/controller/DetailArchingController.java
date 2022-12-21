@@ -40,6 +40,13 @@ public class DetailArchingController {
     }
 
     //crear put
+    @PutMapping("/detail-arching-file")
+    public ResponseEntity<HttpStatus> updateFileAmountDetailArching(
+            @RequestBody DetailArchingDto detailArchingDto) {
+        detailArchingService.updateFileAmountDetailArching(detailArchingDto);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
     @PutMapping("/detail-arching")
     public ResponseEntity<HttpStatus> updateDetailArching(
             @RequestBody DetailArchingDto detailArchingDto) {

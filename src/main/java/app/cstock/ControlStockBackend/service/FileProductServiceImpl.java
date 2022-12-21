@@ -98,8 +98,6 @@ public class FileProductServiceImpl implements FileProductService {
 
         FileProduct fileProduct = getByIdFileProductEntity(id);
 
-        fileProduct.setProductName(fileProductDto.getProductName());
-        fileProduct.setMark(fileProductDto.getMark());
         fileProduct.setAmount(fileProductDto.getAmount());
 
         FileProduct fileProductUpdated = fileProductRepository.save(fileProduct);

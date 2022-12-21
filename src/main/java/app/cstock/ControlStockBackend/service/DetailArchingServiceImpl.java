@@ -73,6 +73,14 @@ public class DetailArchingServiceImpl implements DetailArchingService {
     }
 
     @Override
+    public void updateFileAmountDetailArching(DetailArchingDto detailArchingDto) {
+        DetailArching detailArching = detailArchingRepository.findById(detailArchingDto.getId())
+                .orElseThrow(() -> new ResourceNoteFoundException("DetailArching", "id", detailArchingDto.getId()));
+        detailArching.setFileProductAmount(detailArchingDto.getFileProductAmount());
+        detailArchingRepository.save(detailArching);
+    }
+
+    @Override
     public void deleteDetailArching(Long id) {
         detailArchingRepository.delete(detailArchingTools.mapEntity(getByDetailArchingId(id)));
     }

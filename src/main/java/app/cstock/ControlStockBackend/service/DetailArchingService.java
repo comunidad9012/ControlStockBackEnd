@@ -16,6 +16,8 @@ public interface DetailArchingService {
 
     public void updateDetailArching(DetailArchingDto detailArchingDto);
 
+    public void updateFileAmountDetailArching(DetailArchingDto detailArchingDto);
+
     public void deleteDetailArching(Long id);
 
     public void deleteAllDetailArching(Long id);
